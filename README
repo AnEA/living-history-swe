@@ -1,0 +1,25 @@
+With passing time many things change in peoples lives. Yet, so many memories exist in our memories.
+Have you listened to how life was when a family member was younger? Have you ever told others about your memories? Maybe about the best ice cream shop that made your favorite sour cherry ice cream! The one your father took you after you fell of your bicycle. That ice cream shop may no longer exists, but it does in your memories.
+
+You can see how movies, books, poetry describe memories. Your task is to create a digital space for creating and sharing your memories and experiencing the memories of others. 
+
+Take a look at: <a href="http://digital.lib.uiowa.edu/cdm/ref/collection/ucmp/id/2900">Pearson's Drug store at University of Iowa </a>, which talks about a drug store with a soda fountain that existed for a long time. Then it went out of business and became a video store, which kept the soda fountain. Since videos are also dead, that is another history... You get the idea...
+Your application shall let people describe a location and time based memory. The same location may have different memories. each depending on who experienced it and when it happened.  The descriptions will include a place (or several places if appropriate), the time, and the description of the memory. Memories may be described with multimedia elements, such as text, pictures, videos, and sound recordings.
+
+The memories should be able to be located via searching and browsing. Advanced search  by location,  time, and person should be supported.
+
+When viewing a memory a map showing the location must be provided using Openstreetmap (http://www.openstreetmap.org/)
+
+This application will provide memory recommendation to users. People who are interested in the same areas or similar kinds of memories are likely to be interested in similar memories. In fact it might be interesting to connect people based on similar memories. 
+
+User must be able to respond  to a memory, for example "I remember that!", "I loved that", ... that are appropriate for memories.
+
+Use gamification to motivate the contribution of memories.
+
+Allow user to find related historical information from Linked Open Data. DBPedia and Geonames are good starts. This will inter-relate memories with already existing information.
+
+All relevant information should be able to be exported in RDF for interoperability purposes.
+
+This application will have a web and an Android based mobile client. 
+
+The server side will be written in Java and the database will be MySQL. The hosting will be provided by the customer.
