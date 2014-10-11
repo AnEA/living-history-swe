@@ -1,0 +1,18 @@
+{
+  "browser": true,
+  "esnext": true,
+  "globals": {
+    "angular": true,
+    "module": true,
+    "_": true,
+    "ApplicationConfiguration": true
+  },
+  "globalstrict": true,
+  "quotmark": true,
+  "smarttabs": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "indent": 4,
+  "white": false
+}

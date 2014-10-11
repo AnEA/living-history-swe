@@ -1,0 +1,20 @@
+# LIVING HISTORY WEB CLIENT
+
+## INSTALLATION
+
+1 - Clone the repo
+```
+$ git clone <<url>>
+```
+2 - Install npm dependencies
+```
+$ npm install
+``` 
+3 - Install client dependencies
+```
+$ bower install
+```
+4 - Run grunt
+```
+$ grunt
+```

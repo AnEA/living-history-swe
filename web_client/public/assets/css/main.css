@@ -1,0 +1,10 @@
+body, html,
+.fill,
+.angular-google-map,
+.angular-google-map-container {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+}
+
+#searchForm { width: 500px; }
