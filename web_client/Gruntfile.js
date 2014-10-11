@@ -124,7 +124,7 @@ module.exports = function (grunt) {
     grunt.registerTask('buildProd', ['includeJsFiles', 'processhtml:dist', 'htmlmin:dist', 'uglify']);
 
     grunt.registerTask('default', ['buildDev', 'connect', 'watch']);
-    grunt.registerTask('deploy', ['setProdEnvironment', 'buildProd']);
+    grunt.registerTask('heroku', ['setProdEnvironment', 'buildProd']);
     grunt.registerTask('deployTest', ['setProdEnvironment', 'buildProd', 'connect', 'watch']);
 
     grunt.registerTask('setProdEnvironment', function () {
