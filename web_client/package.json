@@ -19,6 +19,7 @@
         "grunt-processhtml": "^0.3.3"
     },
     "dependencies": {
+        "grunt-cli": "latest",
         "bower": "latest",
         "connect": "latest",
         "express": "^4.9.7"
