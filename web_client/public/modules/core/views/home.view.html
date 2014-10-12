@@ -1,3 +1,11 @@
-<div class="fill" ng-controller="HomeController">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+<div class="fill" id="map_container" ng-controller="HomeController">
+  <ui-gmap-google-map
+    center="map.center"
+    zoom="map.zoom"
+    dragging="map.dragging"
+    draggable="true"
+    control="map.control">
+        
+      <ui-gmap-markers idkey="map.idkey" models="map.markers" coords="'self'" icon="'icon'" click="'onClicked'"></ui-gmap-markers>
+  </ui-gmap-google-map>
 </div>

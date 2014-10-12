@@ -3,6 +3,7 @@
 module.exports = function (grunt) {
 
     var jsDependencies = [
+            'public/lib/jquery/dist/jquery.js',
             'public/lib/angular/angular.js',
             'public/lib/angular-route/angular-route.js',
             'public/lib/angular-mocks/angular-mocks.js',
@@ -13,7 +14,7 @@ module.exports = function (grunt) {
             'public/lib/restangular/dist/restangular.js',
             'public/lib/lodash/dist/lodash.js',
             'public/lib/bluebird/js/browser/bluebird.js',
-            'public/lib/angular-google-maps/dist/angular-google-maps.min.js'
+            'public/lib/angular-google-maps/dist/angular-google-maps.js'
         ],
 
         projectFiles = [

@@ -12,6 +12,7 @@
     "restangular": "~1.4.0",
     "angular-ui-router": "~0.2.10",
     "lodash": "~2.4.1",
-    "angular-google-maps": "~2.0.1"
+    "angular-google-maps": "~2.0.1",
+    "jquery": "~2.1.1"
   }
 }

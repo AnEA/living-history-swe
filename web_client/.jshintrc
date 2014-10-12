@@ -5,7 +5,8 @@
     "angular": true,
     "module": true,
     "_": true,
-    "ApplicationConfiguration": true
+    "ApplicationConfiguration": true,
+    "google": true
   },
   "globalstrict": true,
   "quotmark": true,

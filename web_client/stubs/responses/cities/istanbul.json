@@ -1,0 +1,49 @@
+[{
+    "name": "Boğaziçi Üniversitesi Kuzey Kampüsü",
+    "place_id": "ChIJB3FtcgC2yhQR4jvZZPrH9fo",
+    "latitude": 41.085452,
+    "longitude": 29.044493999999986,
+    "memories": [{
+        "author": "Aydın Kırtıl",
+        "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/83817590.jpg",
+        "content": "Eskiden buralarda kar vardı.",
+        "date": "1413136221930"
+    }, {
+        "author": "Rıza Başaran",
+        "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/84588762.jpg",
+        "content": "Çok üşüyorduk",
+        "date": "1413136242988"
+    }]
+}, {
+    "name": "Bebek Otel",
+    "place_id": "bebek_otel",
+    "latitude": 41.078016,
+    "longitude": 29.044414,
+    "memories": [{
+        "author": "Hüsametting Candoruk",
+        "imageUrl": "http://galeri4.uludagsozluk.com/104/abiler_167553.jpg",
+        "content": "Abilerle toplantı.",
+        "date": "1413136221930"
+    }, {
+        "author": "Ayşe Su",
+        "imageUrl": "http://media-cdn.tripadvisor.com/media/photo-s/02/ba/1d/f7/alacati-kapari-hotel.jpg",
+        "content": "Havuz başı keyfi.",
+        "date": "1413136242988"
+    }]
+}, {
+    "name": "Mecidiyeköy Lisesi",
+    "place_id": "mecidiyekoy_lisesi",
+    "latitude": 41.070713,
+    "longitude": 28.996274,
+    "memories": [{
+        "author": "Murtaza Aslan",
+        "imageUrl": "http://www.hurriyet.com.tr/_np/6681/22636681.jpg",
+        "content": "O gün okulu yakmıştık.",
+        "date": "1413136221930"
+    }, {
+        "author": "Hüseyin Hakgetiren",
+        "imageUrl": "http://i.ytimg.com/vi/Tf47Bq4B44M/maxresdefault.jpg",
+        "content": "Okulun ilk gününde çocuklar gibi şendik.",
+        "date": "1413136242988"
+    }]
+}]

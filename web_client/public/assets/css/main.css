@@ -8,3 +8,46 @@ body, html,
 }
 
 #searchForm { width: 500px; }
+
+#map_container { margin-top: 31px; }
+
+.pac-controls {
+  margin-top: 16px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  padding: 0 11px 0 13px;
+  width: 300px;
+  height: 40px !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  top: 60px !important;
+  right: 5px !important;
+  left: auto !important;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+  margin-left: -1px;
+  padding-left: 14px;  /* Regular padding-left + 1. */
+  width: 401px;
+  height: 60px !important;
+}
+
+.pac-container {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.location_detail {
+    height: 350px;
+    width: 350px;
+}
