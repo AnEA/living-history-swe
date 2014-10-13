@@ -9,7 +9,15 @@ body, html,
 
 #searchForm { width: 500px; }
 
-#map_container { margin-top: 31px; }
+#map_container { margin-top: 51px; }
+
+.navbar-fixed-top { margin-right: auto !important; }
+
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    padding-top: 130px;
+  }
+}
 
 .pac-controls {
   margin-top: 16px;
@@ -30,7 +38,7 @@ body, html,
   font-size: 15px;
   font-weight: 300;
   text-overflow: ellipsis;
-  top: 60px !important;
+  top: 20px !important;
   right: 5px !important;
   left: auto !important;
 }
@@ -39,8 +47,6 @@ body, html,
   border-color: #4d90fe;
   margin-left: -1px;
   padding-left: 14px;  /* Regular padding-left + 1. */
-  width: 401px;
-  height: 60px !important;
 }
 
 .pac-container {
@@ -50,4 +56,15 @@ body, html,
 .location_detail {
     height: 350px;
     width: 350px;
+}
+
+.filter-button {
+    position: absolute;
+    top: 13px;
+    left: 44%;
+    z-index: 9999;
+}
+
+.filter_modal {
+    margin-top: -82px;
 }

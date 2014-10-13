@@ -1,26 +1,74 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$log', '$modal', 'GoogleMapApi'.ns(), 'CityService',
-    function ($scope, $log, $modal, GoogleMapApi, CityService) {
+angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'CityService', 'MarkerService',
+    function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService) {
+        var modalInstance,
+            isModelOpened = false;
+
         $scope.map = {
+            control: {},
             center: {
                 latitude: 41.085679,
                 longitude: 29.044484
             },
             zoom: 12,
+            bounds: null
+        };
 
+        $scope.filterIsOpen = false;
+        $scope.markers = MarkerService.markers;
+
+        $scope.$watch(
+            function () {
+                return MarkerService.markers;
+            },
+
+            function (newValue) {
+                $scope.markers = newValue;
+            },
+            true
+        );
+
+        $scope.openFilterModal = function () {
+            if (isModelOpened) {
+                modalInstance.dismiss('cancel');
+            } else {
+                modalInstance = $modal.open({
+                    templateUrl: 'modules/core/views/memory-filters.view.html',
+                    controller: 'FilterMemoriesController',
+                    size: 'sm',
+                    windowClass: 'filter_modal'
+                });
+            }
+
+            isModelOpened = !isModelOpened;
+        };
+
+        $scope.markerSelected = function (marker) {
+            $log.info('place selected ' + marker.place);
+
+            $modal.open({
+                templateUrl: 'modules/core/views/location-detail.view.html',
+                controller: 'LocationDetailController',
+                size: 'lg',
+                resolve: {
+                    place: function () {
+                        return marker.place;
+                    }
+                }
+            });
         };
 
         GoogleMapApi.then(function () {
             CityService.getMemoriesOfCity('istanbul').then(function (places) {
-                var newMarkers = [],
-                    bounds = new google.maps.LatLngBounds();
+                var bounds = new google.maps.LatLngBounds(),
+                    newMarkers = [];
 
-                _(places).forEach(function (place, index) {
+                _(places).forEach(function (place) {
                     var location = new google.maps.LatLng(place.latitude, place.longitude),
 
                         marker = {
-                            id: index,
+                            id: place.place_id,
                             place_id: place.place_id,
                             name: place.name,
                             latitude: place.latitude,
@@ -28,40 +76,18 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$modal',
                             options: {
                                 visible: false
                             },
-                            place: place
+                            place: place,
+                            destroy: function () {
+                                $log.info('destroy is called');
+                            }
                         };
 
                     newMarkers.push(marker);
                     bounds.extend(location);
                 });
 
-                _.each(newMarkers, function (marker) {
-                    marker.closeClick = function () {
-                        $scope.selected.options.visible = false;
-                        marker.options.visble = false;
-                        return $scope.$apply();
-                    };
-                    marker.onClicked = function () {
-                        var modalInstance = $modal.open({
-                            templateUrl: 'modules/core/views/location-detail.view.html',
-                            controller: 'LocationDetailController',
-                            size: 'lg',
-                            resolve: {
-                                place: function () {
-                                    return marker.place;
-                                }
-                            }
-                        });
-
-                        modalInstance.result.then(function (selectedItem) {
-                            $scope.selected = selectedItem;
-                        }, function () {
-                            $log.info('Modal dismissed at: ' + new Date());
-                        });
-                    };
-                });
-
-                $scope.map.markers = newMarkers;
+                $scope.markers = newMarkers;
+                MarkerService.markers = newMarkers;
             });
         });
 
@@ -72,6 +98,35 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$modal',
 
                 },
                 templateparameter: {}
+            },
+            searchbox: {
+                template: 'searchbox.tpl.html',
+                events: {
+                    places_changed: function (searchBox) {
+                        $log.info('place changed');
+
+                        var places = searchBox.getPlaces();
+                        if (places.length === 0) {
+                            return;
+                        }
+
+                        var bounds = new google.maps.LatLngBounds();
+                        for (var i = 0; i < places.length; i++) {
+                            bounds.extend(places[i].geometry.location);
+                        }
+
+                        $scope.map.bounds = {
+                            northeast: {
+                                latitude: bounds.getNorthEast().lat(),
+                                longitude: bounds.getNorthEast().lng()
+                            },
+                            southwest: {
+                                latitude: bounds.getSouthWest().lat(),
+                                longitude: bounds.getSouthWest().lng()
+                            }
+                        };
+                    }
+                }
             }
         });
     }

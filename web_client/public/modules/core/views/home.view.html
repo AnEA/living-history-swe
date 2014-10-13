@@ -1,11 +1,14 @@
 <div class="fill" id="map_container" ng-controller="HomeController">
-  <ui-gmap-google-map
-    center="map.center"
-    zoom="map.zoom"
-    dragging="map.dragging"
-    draggable="true"
-    control="map.control">
-        
-      <ui-gmap-markers idkey="map.idkey" models="map.markers" coords="'self'" icon="'icon'" click="'onClicked'"></ui-gmap-markers>
+
+   <a class="btn btn-sm btn-danger filter-button" ng-click="openFilterModal()">Filter Memories</a>
+
+  <ui-gmap-google-map 
+    center="map.center" zoom="map.zoom" draggable="true"
+    events="map.events" bounds="map.bounds" options="map.options">
+
+    <ui-gmap-search-box options="searchbox.options" template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
+
+    <ui-gmap-marker ng-repeat="m in markers" coords="m" click="markerSelected(m)" idkey="m.id"></ui-gmap-marker>
+
   </ui-gmap-google-map>
 </div>

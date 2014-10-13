@@ -10,3 +10,9 @@ angular.module('swe').config(['GoogleMapApiProvider'.ns(),
         });
     }
 ]);
+
+angular.module('core').run(['$templateCache',
+    function ($templateCache) {
+        $templateCache.put('searchbox.tpl.html', '<input id="pac-input" class="pac-controls" type="text" placeholder="Search Box">');
+    }
+]);
