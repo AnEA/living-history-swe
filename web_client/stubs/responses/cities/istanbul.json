@@ -7,7 +7,7 @@
         "author": "Aydın Kırtıl",
         "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/83817590.jpg",
         "content": "Eskiden buralarda kar vardı.",
-        "tags": ["bogazici", "winter", "night", "snow"],
+        "tags": ["bogazici", "snow", "night", "fun"],
         "date": "1413136221930",
         "active": true
     }, {
@@ -19,43 +19,29 @@
         "active": true
     }]
 }, {
-    "name": "Bebek Otel",
-    "place_id": "bebek_otel",
-    "latitude": 41.078016,
-    "longitude": 29.044414,
+    "name": "Oktoberfest München",
+    "place_id": "oktoberfest_munchen",
+    "latitude": 48.131785,
+    "longitude": 11.549619,
     "memories": [{
-        "author": "Hüsametting Candoruk",
-        "imageUrl": "http://galeri4.uludagsozluk.com/104/abiler_167553.jpg",
-        "tags": [],
-        "content": "Abilerle toplantı.",
+        "author": "Hans",
+        "imageUrl": "http://www.bigeales.com/wp-content/uploads/2014/01/Waitress-photo.jpg",
+        "content": "Das Oktoberfest in München (mundartlich Wiesn) ist das größte Volksfest der Welt. Es findet seit 1810 auf der Theresienwiese in der bayerischen Landeshauptstadt München statt und wird Jahr für Jahr von rund sechs Millionen Menschen besucht; 2012 waren es 6,4 Millionen Besucher.[1] Für das Oktoberfest brauen die Münchner Brauereien ein spezielles Bier, das eine Stammwürze von mindestens 13,5 % aufweisen muss[2] und folglich mehr Alkohol als gewöhnliches Vollbier enthält (2013 zwischen 5,8 und 6,4",
+        "tags": ["oktoberfest", "munchen", "beer", "fun"],
         "date": "1413136221930",
-        "active": true
-    }, {
-        "author": "Ayşe Su",
-        "imageUrl": "http://media-cdn.tripadvisor.com/media/photo-s/02/ba/1d/f7/alacati-kapari-hotel.jpg",
-        "content": "Havuz başı keyfi.",
-        "tags": [],
-        "date": "1413136242988",
         "active": true
     }]
 }, {
-    "name": "Mecidiyeköy Lisesi",
-    "place_id": "mecidiyekoy_lisesi",
-    "latitude": 41.070713,
-    "longitude": 28.996274,
+    "name": "Budapest Center",
+    "place_id": "budapest_center",
+    "latitude": 47.428473,
+    "longitude": 19.060808,
     "memories": [{
-        "author": "Murtaza Aslan",
-        "imageUrl": "http://www.hurriyet.com.tr/_np/6681/22636681.jpg",
-        "content": "O gün okulu yakmıştık.",
-        "tags": [],
+        "author": "John",
+        "imageUrl": "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg",
+        "content": "A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából, valamint bizonyos pótanyagokból vízzel cefrézett, komlóval, illetve egyéb engedélyezett anyagokkal ízesített, sörélesztővel erjesztett, szén-dioxidban dús, alkoholtartalmú ital.",
+        "tags": ["beer", "budapest", "beerbike"],
         "date": "1413136221930",
-        "active": true
-    }, {
-        "author": "Hüseyin Hakgetiren",
-        "imageUrl": "http://i.ytimg.com/vi/Tf47Bq4B44M/maxresdefault.jpg",
-        "content": "Okulun ilk gününde çocuklar gibi şendik.",
-        "tags": [],
-        "date": "1413136242988",
         "active": true
     }]
 }]

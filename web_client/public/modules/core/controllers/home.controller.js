@@ -20,6 +20,13 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         MarkerService.registerObserverCallback(function () {
             $log.info('filteredMarkers new val ' + MarkerService.filteredMarkers);
             $scope.activeMarkers = MarkerService.filteredMarkers;
+
+            var bounds = new google.maps.LatLngBounds();
+            _.forEach(MarkerService.filteredMarkers, function (marker) {
+                var location = new google.maps.LatLng(marker.latitude, marker.longitude);
+                bounds.extend(location);
+            });
+            setMapBounds(bounds);
         });
 
         $scope.openFilterModal = function () {
@@ -87,8 +94,23 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
                 $scope.activeMarkers = newMarkers;
                 MarkerService.markers = newMarkers;
+
+                setMapBounds(bounds);
             });
         });
+
+        function setMapBounds(bounds) {
+            $scope.map.bounds = {
+                northeast: {
+                    latitude: bounds.getNorthEast().lat(),
+                    longitude: bounds.getNorthEast().lng()
+                },
+                southwest: {
+                    latitude: bounds.getSouthWest().lat(),
+                    longitude: bounds.getSouthWest().lng()
+                }
+            };
+        }
 
         angular.extend($scope, {
             selected: {
@@ -114,16 +136,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                             bounds.extend(places[i].geometry.location);
                         }
 
-                        $scope.map.bounds = {
-                            northeast: {
-                                latitude: bounds.getNorthEast().lat(),
-                                longitude: bounds.getNorthEast().lng()
-                            },
-                            southwest: {
-                                latitude: bounds.getSouthWest().lat(),
-                                longitude: bounds.getSouthWest().lng()
-                            }
-                        };
+                        setMapBounds(bounds);
                     }
                 }
             }
