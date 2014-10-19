@@ -100,6 +100,14 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         });
 
         function setMapBounds(bounds) {
+            if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.1, bounds.getNorthEast().lng() + 0.1),
+                    extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.1, bounds.getNorthEast().lng() - 0.1);
+
+                bounds.extend(extendPoint1);
+                bounds.extend(extendPoint2);
+            }
+
             $scope.map.bounds = {
                 northeast: {
                     latitude: bounds.getNorthEast().lat(),
