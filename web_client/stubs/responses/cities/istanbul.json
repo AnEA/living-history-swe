@@ -7,12 +7,16 @@
         "author": "Aydın Kırtıl",
         "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/83817590.jpg",
         "content": "Eskiden buralarda kar vardı.",
-        "date": "1413136221930"
+        "tags": ["bogazici", "winter", "night", "snow"],
+        "date": "1413136221930",
+        "active": true
     }, {
         "author": "Rıza Başaran",
         "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/84588762.jpg",
         "content": "Çok üşüyorduk",
-        "date": "1413136242988"
+        "tags": ["bogazici", "winter", "snow", "snowstorm"],
+        "date": "1413136242988",
+        "active": true
     }]
 }, {
     "name": "Bebek Otel",
@@ -22,13 +26,17 @@
     "memories": [{
         "author": "Hüsametting Candoruk",
         "imageUrl": "http://galeri4.uludagsozluk.com/104/abiler_167553.jpg",
+        "tags": [],
         "content": "Abilerle toplantı.",
-        "date": "1413136221930"
+        "date": "1413136221930",
+        "active": true
     }, {
         "author": "Ayşe Su",
         "imageUrl": "http://media-cdn.tripadvisor.com/media/photo-s/02/ba/1d/f7/alacati-kapari-hotel.jpg",
         "content": "Havuz başı keyfi.",
-        "date": "1413136242988"
+        "tags": [],
+        "date": "1413136242988",
+        "active": true
     }]
 }, {
     "name": "Mecidiyeköy Lisesi",
@@ -39,11 +47,15 @@
         "author": "Murtaza Aslan",
         "imageUrl": "http://www.hurriyet.com.tr/_np/6681/22636681.jpg",
         "content": "O gün okulu yakmıştık.",
-        "date": "1413136221930"
+        "tags": [],
+        "date": "1413136221930",
+        "active": true
     }, {
         "author": "Hüseyin Hakgetiren",
         "imageUrl": "http://i.ytimg.com/vi/Tf47Bq4B44M/maxresdefault.jpg",
         "content": "Okulun ilk gününde çocuklar gibi şendik.",
-        "date": "1413136242988"
+        "tags": [],
+        "date": "1413136242988",
+        "active": true
     }]
 }]

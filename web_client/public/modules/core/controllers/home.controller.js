@@ -16,18 +16,11 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         $scope.filterIsOpen = false;
-        $scope.markers = MarkerService.markers;
 
-        $scope.$watch(
-            function () {
-                return MarkerService.markers;
-            },
-
-            function (newValue) {
-                $scope.markers = newValue;
-            },
-            true
-        );
+        MarkerService.registerObserverCallback(function () {
+            $log.info('filteredMarkers new val ' + MarkerService.filteredMarkers);
+            $scope.activeMarkers = MarkerService.filteredMarkers;
+        });
 
         $scope.openFilterModal = function () {
             if (isModelOpened) {
@@ -45,15 +38,21 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         $scope.markerSelected = function (marker) {
-            $log.info('place selected ' + marker.place);
+            var activeMemories = _.filter(marker.place.memories, function (memory) {
+                return memory.active;
+            });
 
             $modal.open({
                 templateUrl: 'modules/core/views/location-detail.view.html',
                 controller: 'LocationDetailController',
                 size: 'lg',
                 resolve: {
-                    place: function () {
-                        return marker.place;
+                    placeName: function () {
+                        return marker.place.name;
+                    },
+
+                    memories: function () {
+                        return activeMemories;
                     }
                 }
             });
@@ -86,7 +85,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                     bounds.extend(location);
                 });
 
-                $scope.markers = newMarkers;
+                $scope.activeMarkers = newMarkers;
                 MarkerService.markers = newMarkers;
             });
         });

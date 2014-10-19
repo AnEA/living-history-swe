@@ -9,9 +9,11 @@ body, html,
 
 #searchForm { width: 500px; }
 
-#map_container { margin-top: 51px; }
+#map_container { margin-top: 31px; }
 
-.navbar-fixed-top { margin-right: auto !important; }
+.navbar-fixed-top { 
+   margin-right: auto !important; 
+}
 
 @media screen and (min-width: 768px) {
   .modal-dialog {
@@ -62,9 +64,11 @@ body, html,
     position: absolute;
     top: 13px;
     left: 44%;
-    z-index: 9999;
+    z-index: 1043;
 }
 
 .filter_modal {
     margin-top: -82px;
 }
+
+#location_modal span.label { margin-right: 3px; }

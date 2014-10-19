@@ -1,20 +1,18 @@
 <div class="modal-content">
   <div class="modal-header">
   <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="myModalLabel">{{place.name}}</h4>
+    <h4 class="modal-title" id="myModalLabel">{{placeName}}</h4>
   </div>
-  <div class="modal-body">
+  <div id="location_modal" class="modal-body">
     <center>
       <img ng-src="{{currentMemory.imageUrl}}" name="aboutme" width="400" border="0" class="img-rounded">
       </a>
       <h3 class="media-heading">{{currentMemory.author}}
         <small>{{currentMemory.date | date:"MM/dd/yyyy 'at' h:mma"}}</small>
       </h3>
-    <span><strong>Tags: </strong></span>
-      <span class="label label-warning">tag1</span>
-      <span class="label label-info">tag2</span>
-      <span class="label label-info">tag3</span>
-      <span class="label label-success">tag4</span>
+      <span ng-repeat="tag in currentMemory.tags" class="label" ng-class="tagLabels[$index]">
+        #{{tag}}
+      </span>
     </center>
     <hr>
       <p class="text-left"><strong>Memory: </strong>

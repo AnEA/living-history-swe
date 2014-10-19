@@ -14,7 +14,8 @@ module.exports = function (grunt) {
             'public/lib/restangular/dist/restangular.js',
             'public/lib/lodash/dist/lodash.js',
             'public/lib/bluebird/js/browser/bluebird.js',
-            'public/lib/angular-google-maps/dist/angular-google-maps.js'
+            'public/lib/angular-google-maps/dist/angular-google-maps.js',
+            'public/lib/angular-rangeslider/angular.rangeSlider.js'
         ],
 
         projectFiles = [

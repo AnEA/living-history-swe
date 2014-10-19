@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('core').controller('LocationDetailController', ['$scope', '$modalInstance', 'place',
-    function ($scope, $modalInstance, place) {
-        $scope.place = place;
-        $scope.memories = place.memories;
+angular.module('core').controller('LocationDetailController', ['$scope', '$modalInstance', 'placeName', 'memories',
+    function ($scope, $modalInstance, placeName, memories) {
+        $scope.placeName = placeName;
+        $scope.memories = memories;
+
+        $scope.tagLabels = ['label-primary', 'label-success', 'label-info', 'label-warning', 'label-danger'];
 
         $scope.currentPage = 1;
         $scope.currentMemory = $scope.memories[0];
