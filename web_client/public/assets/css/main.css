@@ -67,6 +67,13 @@ body, html,
     z-index: 1043;
 }
 
+.add-memory-button {
+    position: absolute;
+    top: 13px;
+    left: 30%;
+    z-index: 1043;
+}
+
 .filter_modal {
     margin-top: -82px;
 }

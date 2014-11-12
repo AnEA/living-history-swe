@@ -6,7 +6,7 @@ angular.module('swe').config(['GoogleMapApiProvider'.ns(),
         GoogleMapApi.configure({
             //    key: 'your api key',
             v: '3.17',
-            libraries: 'places'
+            libraries: 'places,drawing'
         });
     }
 ]);

@@ -8,7 +8,6 @@ module.exports = function (grunt) {
             'public/lib/angular-route/angular-route.js',
             'public/lib/angular-mocks/angular-mocks.js',
             'public/lib/angular-resource/angular-resource.js',
-            'public/lib/angular-bootstrap/ui-bootstrap.js',
             'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'public/lib/angular-ui-router/release/angular-ui-router.js',
             'public/lib/restangular/dist/restangular.js',

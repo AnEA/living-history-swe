@@ -3,7 +3,9 @@
 angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'CityService', 'MarkerService',
     function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService) {
         var modalInstance,
-            isModelOpened = false;
+            isModelOpened = false,
+            eventsInited = false,
+            drawedMarkers = [];
 
         $scope.map = {
             control: {},
@@ -17,6 +19,24 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.filterIsOpen = false;
 
+        $scope.drawingManagerControl = {};
+
+        function initDrawEvents() {
+            if (eventsInited) {
+                return;
+            }
+
+            eventsInited = true;
+            google.maps.event.addListener($scope.drawingManagerControl.getDrawingManager(), 'markercomplete', function (drawed) {
+                // var location = new google.maps.LatLng(map.position, place.longitude);
+                // map.getPosition().lat()
+                // map.getPosition().lng()
+                drawedMarkers.push(drawed);
+
+                $log.info('finished ' + drawed.position);
+            });
+        }
+
         MarkerService.registerObserverCallback(function () {
             $log.info('filteredMarkers new val ' + MarkerService.filteredMarkers);
             $scope.activeMarkers = MarkerService.filteredMarkers;
@@ -28,6 +48,24 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             });
             setMapBounds(bounds);
         });
+
+        $scope.addMemory = function () {
+            initDrawEvents();
+
+            $scope.isAdding = true;
+            $scope.activeMarkers = [];
+            $scope.drawingManagerOptions.drawingMode = google.maps.drawing.OverlayType.MARKER;
+        };
+
+        $scope.cancelAdding = function () {
+            _.forEach(drawedMarkers, function (drawed) {
+                drawed.setMap();
+            });
+            drawedMarkers = [];
+
+            $scope.isAdding = false;
+            $scope.activeMarkers = MarkerService.markers;
+        };
 
         $scope.openFilterModal = function () {
             if (isModelOpened) {
@@ -127,6 +165,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
                 },
                 templateparameter: {}
+            },
+            drawingManagerOptions: {
+                drawingControl: false
             },
             searchbox: {
                 template: 'searchbox.tpl.html',

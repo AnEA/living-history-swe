@@ -1,21 +1,21 @@
 {
-  "name": "livingHistoryWebClient",
-  "version": "0.1.0",
-  "description": "living history web client",
-  "dependencies": {
-    "angular": "~1.2.12",
-    "angular-mocks": "~1.2.12",
-    "bootstrap-css": "~3.0.0",
-    "angular-route": "~1.2.12",
-    "angular-bootstrap": "~0.11.0",
-    "angular-resource": "~1.2.13",
-    "restangular": "~1.4.0",
-    "angular-ui-router": "~0.2.10",
-    "lodash": "~2.4.1",
-    "angular-google-maps": "~2.0.1",
-    "jquery": "~2.1.1",
-    "bluebird": "~2.3.6",
-    "angular-rangeslider": "~0.0.7",
-    "angular-moment": "~0.8.2"
-  }
+    "name": "livingHistoryWebClient",
+    "version": "0.1.0",
+    "description": "living history web client",
+    "dependencies": {
+        "angular": "latest",
+        "angular-mocks": "latest",
+        "bootstrap-css": "~3.0.0",
+        "angular-route": "latest",
+        "angular-bootstrap": "latest",
+        "angular-resource": "latest",
+        "restangular": "latest",
+        "angular-ui-router": "latest",
+        "lodash": "latest",
+        "angular-google-maps": "latest",
+        "jquery": "~2.1.1",
+        "bluebird": "latest",
+        "angular-rangeslider": "latest",
+        "angular-moment": "latest"
+    }
 }
