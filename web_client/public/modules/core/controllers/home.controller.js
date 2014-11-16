@@ -33,9 +33,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                             'latLng': e.latLng
                         }, function (results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
-                                addMarker(e.latLng.lat(), e.latLng.lng());
                                 if (results[0]) {
                                     $log.info('result: ' + results[0].address_components[0].short_name);
+                                    addNewMarker(e.latLng.lat(), e.latLng.lng(), results[0].address_components[0].short_name);
                                 } else {
                                     $log.info('No results found');
                                 }
@@ -50,11 +50,13 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.filterIsOpen = false;
 
-        function addMarker(lat, lng) {
+        function addNewMarker(lat, lng, name) {
             var clickedMarker = {
                 id: 0,
+                name: name,
                 latitude: lat,
-                longitude: lng
+                longitude: lng,
+                isCustom: true
             };
 
             $scope.activeMarkers.push(clickedMarker);
@@ -77,6 +79,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             $scope.isAdding = true;
         };
 
+        $scope.removeMarker = function (index) {
+            $scope.activeMarkers.splice(index, 1);
+        };
+
         $scope.cancelAdding = function () {
             _.forEach(drawedMarkers, function (drawed) {
                 drawed.setMap();
@@ -84,6 +90,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             drawedMarkers = [];
 
             $scope.isAdding = false;
+        };
+
+        $scope.selectThumb = function (marker) {
+            marker.isActive = !marker.isActive;
         };
 
         $scope.openFilterModal = function () {
@@ -201,8 +211,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         var bounds = new google.maps.LatLngBounds();
                         for (var i = 0; i < places.length; i++) {
                             bounds.extend(places[i].geometry.location);
-                            addMarker(places[i].geometry.location.lat(),
-                                places[i].geometry.location.lng());
+                            addNewMarker(places[i].geometry.location.lat(),
+                                places[i].geometry.location.lng(), places[i].name);
                         }
 
                         setMapBounds(bounds);
