@@ -8,6 +8,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.selectedToAdd = 0;
 
+        $scope.alerts = [];
+
         $scope.map = {
             options: {
                 styles: [{
@@ -54,8 +56,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         function addNewMarker(lat, lng, name) {
             var clickedMarker = {
                 id: 0,
-                name: name,
-                place: {},
+                place: {
+                    name: name,
+                    memories: []
+                },
                 latitude: lat,
                 longitude: lng,
                 isCustom: true
@@ -118,6 +122,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         $scope.markerSelected = function (marker) {
+            if (!marker.place.memories.length) {
+                return;
+            }
+
             var activeMemories = _.filter(marker.place.memories, function (memory) {
                 return memory.active;
             });
@@ -136,6 +144,32 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                     }
                 }
             });
+        };
+
+        $scope.addMemory = function () {
+            var selectedMarkers = _.filter($scope.activeMarkers, 'isActive');
+
+            var modalInstance = $modal.open({
+                templateUrl: 'modules/core/views/add-memory.view.html',
+                controller: 'AddMemoryController',
+                size: 'lg',
+                resolve: {
+                    markers: function () {
+                        return selectedMarkers;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+                $scope.alerts.push({
+                    type: 'success',
+                    msg: 'Your memory is successfully created!'
+                });
+            });
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
 
         GoogleMapApi.then(function () {

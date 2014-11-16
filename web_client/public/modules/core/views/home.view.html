@@ -1,4 +1,5 @@
 <div class="fill" ng-controller="HomeController">
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <div class="fill col-md-9" style="padding:0;" id="map_container">
 
     <ui-gmap-google-map 
@@ -22,14 +23,14 @@
         <button type="button" class="btn btn-warning btn-xs" title="Add" ng-click="selectThumb(marker)" ng-class="{'btn-success' : marker.isActive}">
             <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-ok' : marker.isActive}"></span>
           </button>
-        <strong ng-if="!marker.isCustom" title="{{marker.name}}" ng-click="goToMarker(marker)">{{marker.name | cut:20}}</strong>
-        <a ng-if="marker.isCustom" href="" editable-text="marker.name">{{ marker.name || "empty" }}</a>
+        <strong ng-if="!marker.isCustom" title="{{marker.place.name}}" ng-click="goToMarker(marker)">{{marker.name | cut:20}}</strong>
+        <a ng-if="marker.isCustom" href="" editable-text="marker.place.name">{{ marker.place.name || "empty" }}</a>
         <button ng-show="marker.isCustom" type="button" style="float:right;" class="btn btn-danger btn-xs" title="Delete" ng-click="removeMarker($index)">
             <span class="glyphicon glyphicon-trash"></span>
         </button>
       </li>
     </ul>
-    <button ng-show="selectedToAdd > 0" ng-click="addMemory" type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory To <br>({{selectedToAdd}}) Location</button>
+    <button ng-show="selectedToAdd > 0" ng-click="addMemory()" type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory To <br>({{selectedToAdd}}) Location</button>
   </div>
 
 </div>
