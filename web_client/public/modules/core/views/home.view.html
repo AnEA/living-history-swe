@@ -13,9 +13,9 @@
   </div>
 
   <div style="margin-top:35px;padding:0;height:100%" class="col-md-3">
-  <a class="btn btn-sm btn-primary" ng-hide="isAdding" ng-click="addMemory()">Add Location</a>
-     <a class="btn btn-sm btn-danger" ng-show="isAdding" ng-click="cancelAdding()">Cancel Location Mode</a>
-     <a class="btn btn-sm btn-primary" ng-hide="isAdding" ng-click="openFilterModal()">Filter Memories</a>
+  <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Add Location</a>
+     <a class="btn btn-sm btn-danger" ng-show="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Cancel Location Mode</a>
+     <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="openFilterModal()">Filter Memories</a>
     <h3>Places</h3>
     <ul class="listrap">
       <li ng-repeat="marker in activeMarkers" ng-class="{'active' : marker.isActive}">
@@ -29,7 +29,7 @@
         </button>
       </li>
     </ul>
-    <button type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory</button>
+    <button ng-show="selectedToAdd > 0" ng-click="addMemory" type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory To <br>({{selectedToAdd}}) Location</button>
   </div>
 
 </div>

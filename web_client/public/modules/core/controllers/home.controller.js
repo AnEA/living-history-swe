@@ -4,8 +4,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
     function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService) {
         var modalInstance,
             isModelOpened = false,
-            drawedMarkers = [],
             geocoder;
+
+        $scope.selectedToAdd = 0;
 
         $scope.map = {
             options: {
@@ -26,7 +27,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             bounds: null,
             events: {
                 click: function (mapModel, eventName, originalEventArgs) {
-                    if ($scope.isAdding) {
+                    if ($scope.isAddingLocation) {
                         var e = originalEventArgs[0];
 
                         geocoder.geocode({
@@ -78,10 +79,6 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             refreshMarkers();
         });
 
-        $scope.addMemory = function () {
-            $scope.isAdding = true;
-        };
-
         $scope.removeMarker = function (index) {
             $scope.activeMarkers.splice(index, 1);
             refreshMarkers();
@@ -93,17 +90,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             });
         }
 
-        $scope.cancelAdding = function () {
-            _.forEach(drawedMarkers, function (drawed) {
-                drawed.setMap();
-            });
-            drawedMarkers = [];
-
-            $scope.isAdding = false;
-        };
-
         $scope.selectThumb = function (marker) {
             marker.isActive = !marker.isActive;
+            $scope.selectedToAdd += marker.isActive ? 1 : -1;
         };
 
         $scope.openFilterModal = function () {
