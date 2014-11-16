@@ -2,7 +2,7 @@ body, html,
 .fill,
 .angular-google-map,
 .angular-google-map-container {
-    height: 100%;
+    height: 99%;
 }
 
 #searchForm { width: 500px; }
@@ -179,6 +179,8 @@ body, html,
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            height: 80%;
+            overflow-y: auto;
         }
 
         .listrap li {

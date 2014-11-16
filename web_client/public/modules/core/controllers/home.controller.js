@@ -54,6 +54,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             var clickedMarker = {
                 id: 0,
                 name: name,
+                place: {},
                 latitude: lat,
                 longitude: lng,
                 isCustom: true
@@ -73,6 +74,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 bounds.extend(location);
             });
             setMapBounds(bounds);
+
+            refreshMarkers();
         });
 
         $scope.addMemory = function () {
@@ -81,7 +84,14 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.removeMarker = function (index) {
             $scope.activeMarkers.splice(index, 1);
+            refreshMarkers();
         };
+
+        function refreshMarkers() {
+            _.forEach($scope.activeMarkers, function (m) {
+                m.refresh = true;
+            });
+        }
 
         $scope.cancelAdding = function () {
             _.forEach(drawedMarkers, function (drawed) {
@@ -109,6 +119,13 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             }
 
             isModelOpened = !isModelOpened;
+        };
+
+        $scope.goToMarker = function (marker) {
+            var latLng = new google.maps.LatLng(marker.latitude, marker.longitude),
+                bounds = new google.maps.LatLngBounds(latLng);
+
+            setMapBounds(bounds);
         };
 
         $scope.markerSelected = function (marker) {
@@ -170,8 +187,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         function setMapBounds(bounds) {
             if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001),
-                    extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
+                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01),
+                    extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
 
                 bounds.extend(extendPoint1);
                 bounds.extend(extendPoint2);
@@ -209,11 +226,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         }
 
                         var bounds = new google.maps.LatLngBounds();
-                        for (var i = 0; i < places.length; i++) {
-                            bounds.extend(places[i].geometry.location);
-                            addNewMarker(places[i].geometry.location.lat(),
-                                places[i].geometry.location.lng(), places[i].name);
-                        }
+                        bounds.extend(places[0].geometry.location);
+                        addNewMarker(places[0].geometry.location.lat(),
+                            places[0].geometry.location.lng(), places[0].name);
 
                         setMapBounds(bounds);
                     }
