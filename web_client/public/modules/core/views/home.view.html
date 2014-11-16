@@ -1,11 +1,6 @@
 <div class="fill" ng-controller="HomeController">
   <div class="fill col-md-9" style="padding:0;" id="map_container">
 
-     <a class="btn btn-sm btn-primary add-memory-button" ng-hide="isAdding" ng-click="addMemory()">Add Location</a>
-     <a class="btn btn-sm btn-danger add-memory-button" ng-show="isAdding" ng-click="cancelAdding()">Cancel</a>
-     <a class="btn btn-sm btn-primary filter-button" ng-hide="isAdding" ng-click="openFilterModal()">Filter Memories</a>
-     <a class="btn btn-sm btn-success filter-button" ng-show="isAdding" ng-click="doneAdding()">Done Adding</a>
-
     <ui-gmap-google-map 
       center="map.center" zoom="map.zoom" draggable="true"
       events="map.events" bounds="map.bounds" options="map.options">
@@ -17,19 +12,24 @@
     </ui-gmap-google-map>
   </div>
 
-  <div style="margin-top:15px;padding:0;" class="col-md-3">
+  <div style="margin-top:35px;padding:0;height:100%" class="col-md-3">
+  <a class="btn btn-sm btn-primary" ng-hide="isAdding" ng-click="addMemory()">Add Location</a>
+     <a class="btn btn-sm btn-danger" ng-show="isAdding" ng-click="cancelAdding()">Cancel Location Mode</a>
+     <a class="btn btn-sm btn-primary" ng-hide="isAdding" ng-click="openFilterModal()">Filter Memories</a>
     <h3>Places</h3>
     <ul class="listrap">
       <li ng-repeat="marker in activeMarkers" ng-class="{'active' : marker.isActive}">
         <button type="button" class="btn btn-warning btn-xs" title="Add" ng-click="selectThumb(marker)" ng-class="{'btn-success' : marker.isActive}">
             <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-ok' : marker.isActive}"></span>
           </button>
-        <strong title="{{marker.name}}" ng-click="goToMarker(marker)">{{marker.name | cut:20}}</strong>
+        <strong ng-if="!marker.isCustom" title="{{marker.name}}" ng-click="goToMarker(marker)">{{marker.name | cut:20}}</strong>
+        <a ng-if="marker.isCustom" href="" editable-text="marker.name">{{ marker.name || "empty" }}</a>
         <button ng-show="marker.isCustom" type="button" style="float:right;" class="btn btn-danger btn-xs" title="Delete" ng-click="removeMarker($index)">
             <span class="glyphicon glyphicon-trash"></span>
         </button>
       </li>
     </ul>
+    <button type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory</button>
   </div>
 
 </div>

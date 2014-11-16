@@ -16,7 +16,8 @@ module.exports = function (grunt) {
             'public/lib/angular-google-maps/dist/angular-google-maps.js',
             'public/lib/angular-rangeslider/angular.rangeSlider.js',
             'public/lib/moment/moment.js',
-            'public/lib/angular-moment/angular-moment.js'
+            'public/lib/angular-moment/angular-moment.js',
+            'public/lib/angular-xeditable/dist/js/xeditable.js'
         ],
 
         projectFiles = [
