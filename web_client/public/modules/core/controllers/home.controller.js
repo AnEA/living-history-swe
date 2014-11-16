@@ -4,37 +4,61 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
     function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService) {
         var modalInstance,
             isModelOpened = false,
-            eventsInited = false,
-            drawedMarkers = [];
+            drawedMarkers = [],
+            geocoder;
 
         $scope.map = {
+            options: {
+                styles: [{
+                    featureType: 'poi',
+                    elementType: 'labels',
+                    stylers: [{
+                        visibility: 'off'
+                    }]
+                }]
+            },
             control: {},
             center: {
                 latitude: 41.085679,
                 longitude: 29.044484
             },
             zoom: 12,
-            bounds: null
+            bounds: null,
+            events: {
+                click: function (mapModel, eventName, originalEventArgs) {
+                    if ($scope.isAdding) {
+                        var e = originalEventArgs[0];
+
+                        geocoder.geocode({
+                            'latLng': e.latLng
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                addMarker(e.latLng.lat(), e.latLng.lng());
+                                if (results[0]) {
+                                    $log.info('result: ' + results[0].address_components[0].short_name);
+                                } else {
+                                    $log.info('No results found');
+                                }
+                            } else {
+                                $log.info('Geocoder failed due to: ' + status);
+                            }
+                        });
+                    }
+                }
+            },
         };
 
         $scope.filterIsOpen = false;
 
-        $scope.drawingManagerControl = {};
+        function addMarker(lat, lng) {
+            var clickedMarker = {
+                id: 0,
+                latitude: lat,
+                longitude: lng
+            };
 
-        function initDrawEvents() {
-            if (eventsInited) {
-                return;
-            }
-
-            eventsInited = true;
-            google.maps.event.addListener($scope.drawingManagerControl.getDrawingManager(), 'markercomplete', function (drawed) {
-                // var location = new google.maps.LatLng(map.position, place.longitude);
-                // map.getPosition().lat()
-                // map.getPosition().lng()
-                drawedMarkers.push(drawed);
-
-                $log.info('finished ' + drawed.position);
-            });
+            $scope.activeMarkers.push(clickedMarker);
+            $scope.$apply();
         }
 
         MarkerService.registerObserverCallback(function () {
@@ -50,11 +74,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         });
 
         $scope.addMemory = function () {
-            initDrawEvents();
-
             $scope.isAdding = true;
-            $scope.activeMarkers = [];
-            $scope.drawingManagerOptions.drawingMode = google.maps.drawing.OverlayType.MARKER;
         };
 
         $scope.cancelAdding = function () {
@@ -64,7 +84,6 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             drawedMarkers = [];
 
             $scope.isAdding = false;
-            $scope.activeMarkers = MarkerService.markers;
         };
 
         $scope.openFilterModal = function () {
@@ -104,6 +123,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         GoogleMapApi.then(function () {
+            geocoder = new google.maps.Geocoder();
+
             CityService.getMemoriesOfCity('istanbul').then(function (places) {
                 var bounds = new google.maps.LatLngBounds(),
                     newMarkers = [];
@@ -139,8 +160,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         function setMapBounds(bounds) {
             if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.1, bounds.getNorthEast().lng() + 0.1),
-                    extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.1, bounds.getNorthEast().lng() - 0.1);
+                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001),
+                    extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
 
                 bounds.extend(extendPoint1);
                 bounds.extend(extendPoint2);
@@ -166,9 +187,6 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 },
                 templateparameter: {}
             },
-            drawingManagerOptions: {
-                drawingControl: false
-            },
             searchbox: {
                 template: 'searchbox.tpl.html',
                 events: {
@@ -183,6 +201,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         var bounds = new google.maps.LatLngBounds();
                         for (var i = 0; i < places.length; i++) {
                             bounds.extend(places[i].geometry.location);
+                            addMarker(places[i].geometry.location.lat(),
+                                places[i].geometry.location.lng());
                         }
 
                         setMapBounds(bounds);

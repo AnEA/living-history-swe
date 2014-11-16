@@ -1,6 +1,6 @@
 <div class="fill" id="map_container" ng-controller="HomeController">
 
-   <a class="btn btn-sm btn-primary add-memory-button" ng-hide="isAdding" ng-click="addMemory()">Add Memory</a>
+   <a class="btn btn-sm btn-primary add-memory-button" ng-hide="isAdding" ng-click="addMemory()">Add Location</a>
    <a class="btn btn-sm btn-danger add-memory-button" ng-show="isAdding" ng-click="cancelAdding()">Cancel</a>
    <a class="btn btn-sm btn-primary filter-button" ng-hide="isAdding" ng-click="openFilterModal()">Filter Memories</a>
    <a class="btn btn-sm btn-success filter-button" ng-show="isAdding" ng-click="doneAdding()">Done Adding</a>
@@ -9,11 +9,10 @@
     center="map.center" zoom="map.zoom" draggable="true"
     events="map.events" bounds="map.bounds" options="map.options">
 
-    <ui-gmap-drawing-manager options="drawingManagerOptions" control="drawingManagerControl"></ui-gmap-drawing-manager>
-
     <ui-gmap-search-box options="searchbox.options" template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
 
     <ui-gmap-marker ng-repeat="m in activeMarkers" coords="m" click="markerSelected(m)" idkey="m.id"></ui-gmap-marker>
 
   </ui-gmap-google-map>
+
 </div>
