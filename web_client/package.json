@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "postinstall": "./node_modules/bower/bin/bower install; ./node_modules/grunt-cli/bin/grunt heroku"
+        "postinstall": "./node_modules/bower/bin/bower cache clean;rm -rf public/lib; ./node_modules/bower/bin/bower install; ls -al public/lib; ./node_modules/grunt-cli/bin/grunt heroku"
     },
     "engines": {
         "node": "0.10.x"
