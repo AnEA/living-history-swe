@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Living History</title>
+
+  <link rel="stylesheet" href="lib/bootstrap-css/css/bootstrap.min.css">:q
+  <link rel="stylesheet" href="lib/angular-rangeslider/angular.rangeSlider.css">
+  <link rel="stylesheet" href="lib/angular-xeditable/dist/css/xeditable.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <div ng-include="'modules/core/views/header.view.html'"></div>
+
+    <div class="container-fluid fill">
+      <div class="fill" ui-view></div>
+    </div>
+
+    <%
+        if (grunt.config('env') === 'PROD') {
+            print('<script src="build/app.min.js"></script>');
+        } else {
+            var jsFiles = grunt.config('jsFilesToInclude');
+
+            jsFiles = grunt.file.expand(jsFiles);
+
+            for(var i = 0, len = jsFiles.length; i < len; i++) {
+                var file = jsFiles[i].replace('www/', '');
+                print('<script src="' + file + '"></script>\n');
+            }
+        }
+    %>
+
+    <script src="stubs/stub.config.js"></script>
+    <!-- build:remove:dist -->
+    <script src="//localhost:35729/livereload.js"></script>
+    <!-- /build -->
+</body>
+
+</html>

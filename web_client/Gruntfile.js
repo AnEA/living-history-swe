@@ -3,28 +3,28 @@
 module.exports = function (grunt) {
 
     var jsDependencies = [
-            'public/lib/jquery/dist/jquery.js',
-            'public/lib/angular/angular.js',
-            'public/lib/angular-route/angular-route.js',
-            'public/lib/angular-mocks/angular-mocks.js',
-            'public/lib/angular-resource/angular-resource.js',
-            'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-            'public/lib/angular-ui-router/release/angular-ui-router.js',
-            'public/lib/restangular/dist/restangular.js',
-            'public/lib/lodash/dist/lodash.js',
-            'public/lib/bluebird/js/browser/bluebird.js',
-            'public/lib/angular-google-maps/dist/angular-google-maps.js',
-            'public/lib/angular-rangeslider/angular.rangeSlider.js',
-            'public/lib/moment/moment.js',
-            'public/lib/angular-moment/angular-moment.js',
-            'public/lib/angular-xeditable/dist/js/xeditable.js'
+            'www/lib/jquery/dist/jquery.js',
+            'www/lib/angular/angular.js',
+            'www/lib/angular-route/angular-route.js',
+            'www/lib/angular-mocks/angular-mocks.js',
+            'www/lib/angular-resource/angular-resource.js',
+            'www/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+            'www/lib/angular-ui-router/release/angular-ui-router.js',
+            'www/lib/restangular/dist/restangular.js',
+            'www/lib/lodash/dist/lodash.js',
+            'www/lib/bluebird/js/browser/bluebird.js',
+            'www/lib/angular-google-maps/dist/angular-google-maps.js',
+            'www/lib/angular-rangeslider/angular.rangeSlider.js',
+            'www/lib/moment/moment.js',
+            'www/lib/angular-moment/angular-moment.js',
+            'www/lib/angular-xeditable/dist/js/xeditable.js'
         ],
 
         projectFiles = [
-            'public/config.js',
-            'public/app.js',
-            'public/modules/core/*.js',
-            'public/modules/core/**/*.js'
+            'www/config.js',
+            'www/app.js',
+            'www/modules/core/*.js',
+            'www/modules/core/**/*.js'
         ],
 
         jsFiles = jsDependencies.concat(projectFiles);
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
             },
 
             changables: {
-                files: ['public/**', '!public/lib/**'],
+                files: ['www/**', '!www/lib/**'],
                 options: {
                     livereload: true
                 }
@@ -64,24 +64,24 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     port: 3000,
-                    base: ['public', 'public/assets', 'stubs', 'public/build']
+                    base: ['www', 'www/assets', 'stubs', 'www/build']
                 }
             }
         },
 
         index: {
-            source: 'public/index.tmpl',
-            target: 'public/build/index.html'
+            source: 'www/index.tmpl',
+            target: 'www/index.html'
         },
 
         uglify: {
             dist: {
                 options: {
                     sourceMap: true,
-                    sourceMapName: 'public/build/sourcemap.map'
+                    sourceMapName: 'www/build/sourcemap.map'
                 },
                 files: {
-                    'public/build/app.min.js': jsFiles
+                    'www/build/app.min.js': jsFiles
                 }
             }
         },
