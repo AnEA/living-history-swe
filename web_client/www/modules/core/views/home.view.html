@@ -14,8 +14,6 @@
   </div>
 
   <div style="margin-top:35px;padding:0;height:100%" class="col-md-3">
-  <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Add Location</a>
-     <a class="btn btn-sm btn-danger" ng-show="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Cancel Location Mode</a>
      <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="openFilterModal()">Filter Memories</a>
     <h3>Places</h3>
     <ul class="listrap">
@@ -24,10 +22,7 @@
             <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-ok' : marker.isActive}"></span>
           </button>
         <strong ng-if="!marker.isCustom" title="{{marker.place.name}}" ng-click="goToMarker(marker)">{{marker.name | cut:20}}</strong>
-        <a ng-if="marker.isCustom" href="" editable-text="marker.place.name">{{ marker.place.name || "empty" }}</a>
-        <button ng-show="marker.isCustom" type="button" style="float:right;" class="btn btn-danger btn-xs" title="Delete" ng-click="removeMarker($index)">
-            <span class="glyphicon glyphicon-trash"></span>
-        </button>
+        <strong ng-if="marker.isCustom" href="">{{marker.place.name}}</strong>
       </li>
     </ul>
     <button ng-show="selectedToAdd > 0" ng-click="addMemory()" type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory To <br>({{selectedToAdd}}) Location</button>

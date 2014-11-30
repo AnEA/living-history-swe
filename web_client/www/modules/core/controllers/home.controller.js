@@ -28,25 +28,8 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             zoom: 12,
             bounds: null,
             events: {
-                click: function (mapModel, eventName, originalEventArgs) {
-                    if ($scope.isAddingLocation) {
-                        var e = originalEventArgs[0];
+                click: function () { //mapModel, eventName, originalEventArgs
 
-                        geocoder.geocode({
-                            'latLng': e.latLng
-                        }, function (results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                if (results[0]) {
-                                    $log.info('result: ' + results[0].address_components[0].short_name);
-                                    addNewMarker(e.latLng.lat(), e.latLng.lng(), results[0].address_components[0].short_name);
-                                } else {
-                                    $log.info('No results found');
-                                }
-                            } else {
-                                $log.info('Geocoder failed due to: ' + status);
-                            }
-                        });
-                    }
                 }
             },
         };
