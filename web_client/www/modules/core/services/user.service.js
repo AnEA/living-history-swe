@@ -16,6 +16,7 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
                 $timeout(function () {
                     if (true) {
                         Global.user = user;
+                        Global.authenticated = true;
                         deferred.resolve(user);
                     } else {
                         deferred.reject();
@@ -27,6 +28,7 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
 
             logout: function () {
                 Global.user = null;
+                Global.authenticated = false;
             }
         };
 

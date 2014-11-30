@@ -16,9 +16,3 @@ angular.module('core').run(['$templateCache',
         $templateCache.put('searchbox.tpl.html', '<input id="pac-input" class="pac-controls" type="text" placeholder="Search Box">');
     }
 ]);
-
-angular.module('core').run(['$rootScope', 'Global',
-    function ($rootScope, Global) {
-        $rootScope.global = Global;
-    }
-]);

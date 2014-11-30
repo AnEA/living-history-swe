@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'CityService', 'MarkerService',
-    function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService) {
+angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'CityService', 'MarkerService', 'Global',
+    function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService, Global) {
         var modalInstance,
             isModelOpened = false,
             geocoder;
@@ -130,25 +130,43 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         $scope.addMemory = function () {
-            var selectedMarkers = _.filter($scope.activeMarkers, 'isActive');
+            if (Global.authenticated) {
+                var selectedMarkers = _.filter($scope.activeMarkers, 'isActive');
 
-            var modalInstance = $modal.open({
-                templateUrl: 'modules/core/views/add-memory.view.html',
-                controller: 'AddMemoryController',
-                size: 'lg',
-                resolve: {
-                    markers: function () {
-                        return selectedMarkers;
+                var modalInstance = $modal.open({
+                    templateUrl: 'modules/core/views/add-memory.view.html',
+                    controller: 'AddMemoryController',
+                    size: 'lg',
+                    resolve: {
+                        markers: function () {
+                            return selectedMarkers;
+                        }
                     }
-                }
-            });
-
-            modalInstance.result.then(function () {
-                $scope.alerts.push({
-                    type: 'success',
-                    msg: 'Your memory is successfully created!'
                 });
-            });
+
+                modalInstance.result.then(function () {
+                    $scope.alerts.push({
+                        type: 'success',
+                        msg: 'Your memory is successfully created!'
+                    });
+                });
+            } else {
+                var _modalData = {
+                    message: 'You need to login first!',
+                    goOnSuccess: 'signin'
+                };
+
+                $modal.open({
+                    templateUrl: 'modules/core/views/error-modal.view.html',
+                    controller: 'GenericModalController',
+                    size: 'sm',
+                    resolve: {
+                        modalData: function () {
+                            return _modalData;
+                        }
+                    }
+                });
+            }
         };
 
         $scope.closeAlert = function (index) {

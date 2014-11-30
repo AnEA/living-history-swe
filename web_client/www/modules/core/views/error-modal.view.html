@@ -1,0 +1,15 @@
+<div class="modal-body center">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-4">
+            <p class="visual centered">
+             <img src="assets/images/icon-confirm.png" alt="Hata">
+            </p>
+            <p class="modal-title centered error_message">{{modalData.message}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn button-cta" ng-click="cancel()">Cancel</button>
+    <button ng-show="modalData.goOnSuccess" class="btn button-cta" ng-click="success()">Login</button>
+</div>

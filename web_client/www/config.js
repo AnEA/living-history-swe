@@ -6,7 +6,7 @@
 var ApplicationConfiguration = (function () {
     // Init module configuration options
     var applicationModuleName = 'swe';
-    var applicationModuleVendorDependencies = ['ngRoute', 'ngResource', 'ui.bootstrap', 'ui.router', 'restangular', 'google-maps'.ns(), 'ui-rangeSlider', 'angularMoment', 'xeditable'];
+    var applicationModuleVendorDependencies = ['ngRoute', 'ngResource', 'ui.bootstrap', 'ui.router', 'restangular', 'google-maps'.ns(), 'ui-rangeSlider', 'angularMoment'];
 
     // Add a new vertical module
     var registerModule = function (moduleName) {
