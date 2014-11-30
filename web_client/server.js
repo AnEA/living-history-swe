@@ -4,9 +4,9 @@ var connect = require('connect'),
     app = connect(),
     port = process.env.PORT || 3000;
 
-app.use("/", express.static(__dirname + "/public"));
+app.use("/", express.static(__dirname + "/www"));
 app.use("/", express.static(__dirname + "/stubs"));
-app.use("/", express.static(__dirname + "/public/build"));
+app.use("/", express.static(__dirname + "/www/build"));
 
 console.log('living history server is running on ' + port + ' port');
 http.createServer(app).listen(port);
