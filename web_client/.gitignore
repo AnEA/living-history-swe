@@ -1,5 +1,5 @@
 node_modules/
-public/lib
+www/lib
 .DS_Store
-public/build/
+www/build/
 npm-debug.log

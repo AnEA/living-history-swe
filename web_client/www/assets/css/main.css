@@ -1,3 +1,9 @@
+body {
+    background: url("../images/light_noise_diagonal.png") repeat scroll 0 0 rgba(0,0,0,0);
+    height: 100%;
+    min-height: 100%;
+}
+
 body, html,
 .fill,
 .angular-google-map,
@@ -289,4 +295,141 @@ form.go-right input:focus + label, form.go-right textarea:focus + label {
     z-index: 999999;
     left: 266px;
     top: 5px;
+}
+
+.login-box-plain {
+background: none repeat scroll 0 0 #fff;
+border: 1px solid #d8d8d8;
+border-radius: 7px 7px 7px 7px;
+box-shadow: 0 1px 4px #d3d3d3;
+margin: 50px auto;
+padding: 55px 60px 60px;
+position: relative;
+min-height: 300px;
+}
+
+.bigintro {
+font-size: 38px;
+line-height: 50px;
+text-align: center;
+}
+
+.divide-40 {
+height: 40px;
+width: 100%;
+}
+
+.form-control {
+display: block;
+width: 100%;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.428571429;
+color: #555;
+vertical-align: middle;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.login-box form i, .login-box-plain form i {
+color: #ccc;
+display: block!important;
+font-size: 16px;
+height: 16px;
+margin: 9px 2px 4px 10px;
+position: absolute!important;
+text-align: center;
+width: 16px;
+z-index: 9999;
+}
+
+.login-box-plain input, .login-box-plain textarea {
+background: none repeat scroll 0 0 #fff;
+font-size: 15px;
+margin: 0;
+padding: 10px 8px 8px;
+width: 100%;
+border-radius: 6px;
+box-shadow: none;
+min-width: 0;
+padding-left: 33px!important;
+}
+.form-control {
+display: block;
+width: 100%;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.428571429;
+color: #555;
+vertical-align: middle;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+
+.login .radio, .checkbox {
+display: block;
+min-height: 20px;
+margin-top: 10px;
+margin-bottom: 10px;
+padding-left: 20px;
+vertical-align: middle;
+}
+
+.login-helpers {
+margin-top: 20px;
+font-size: 12px;
+}
+
+.login a {
+color: #5e87b0;
+text-decoration: none;
+}
+.login a {
+background: transparent;
+}
+.login * {
+outline: medium none!important;
+}
+.login *, .login *:before, .login *:after {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+.fa {
+display: inline-block;
+font-family: FontAwesome;
+font-style: normal;
+font-weight: normal;
+line-height: 1;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+.radio>div.radio, .radio-inline>div.radio, .checkbox>div.checker, .checkbox-inline>div.checker {
+margin-left: -20px;
+padding-top: 0;
+}
+
+.login-box-plain button {
+width: 100%;
 }
