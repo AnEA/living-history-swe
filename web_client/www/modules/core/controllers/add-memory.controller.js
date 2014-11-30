@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('AddMemoryController', ['$scope', '$modalInstance', '$filter', 'markers',
-    function ($scope, $modalInstance, $filter, markers) {
+angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$modalInstance', '$filter', 'markers',
+    function ($scope, Global, $modalInstance, $filter, markers) {
         $scope.modes = [{
             name: 'Year',
             mode: 'year',
@@ -60,7 +60,7 @@ angular.module('core').controller('AddMemoryController', ['$scope', '$modalInsta
         $scope.submitForm = function () {
             if ($scope.myForm.$valid) {
                 var memory = {
-                    'author': 'TestUser',
+                    'author': Global.user.name,
                     'imageUrl': 'http://lorempixel.com/400/300/city/',
                     'content': $scope.description,
                     'tags': $scope.tags.split(','),

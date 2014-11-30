@@ -1,38 +1,29 @@
-<section class="login" class="visible">
+<section class="login" class="visible" ng-controller="SignupController">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="login-box-plain">
                     <h2 class="bigintro">Register</h2>
                     <div class="divide-40"></div>
-                    <form role="form">
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                    <form role="form" ng-submit="signup()">
                       <div class="form-group">
-                        <label for="exampleInputName">Full Name</label>
                         <i class="fa fa-font"></i>
-                        <input type="text" class="form-control" id="exampleInputName">
+                        <input ng-model="fullName" type="text" class="form-control" placeholder="Full Name" required>
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputUsername">Username</label>
-                        <i class="fa fa-user"></i>
-                        <input type="text" class="form-control" id="exampleInputUsername">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
                         <i class="fa fa-envelope"></i>
-                        <input type="email" class="form-control" id="exampleInputEmail1">
+                        <input ng-model="email" type="email" class="form-control" placeholder="Email address" required>
                       </div>
                       <div class="form-group"> 
-                        <label for="exampleInputPassword1">Password</label>
                         <i class="fa fa-lock"></i>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <input ng-model="password" type="password" class="form-control" placeholder="Password" required>
                       </div>
                       <div class="form-group"> 
-                        <label for="exampleInputPassword2">Repeat Password</label>
                         <i class="fa fa-check-square-o"></i>
-                        <input type="password" class="form-control" id="exampleInputPassword2">
+                        <input ng-model="passRepeat" type="password" class="form-control" placeholder="Repeat Password" required>
                       </div>
                       <div class="form-actions">
-                        <label class="checkbox"> <div class="checker"><span><input type="checkbox" class="uniform" value=""></span></div> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
                         <button type="submit" class="btn btn-success">Sign Up</button>
                       </div>
                     </form>

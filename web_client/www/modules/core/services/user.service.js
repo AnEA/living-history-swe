@@ -40,6 +40,18 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
                 return deferred.promise;
             },
 
+            register: function (user) {
+                var deferred = $q.defer();
+
+                $timeout(function () {
+                    Global.user = user;
+                    Global.authenticated = true;
+                    deferred.resolve();
+                }, 500);
+
+                return deferred.promise;
+            },
+
             logout: function () {
                 Global.user = null;
                 Global.authenticated = false;
