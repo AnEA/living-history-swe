@@ -290,13 +290,6 @@ form.go-right input:focus + label, form.go-right textarea:focus + label {
     padding-top: 5px;
 }
 
-.alert {
-    position: absolute;
-    z-index: 999999;
-    left: 266px;
-    top: 5px;
-}
-
 .login-box-plain {
 background: none repeat scroll 0 0 #fff;
 border: 1px solid #d8d8d8;
@@ -430,6 +423,6 @@ margin-left: -20px;
 padding-top: 0;
 }
 
-.login-box-plain button {
+.login-box-plain form button {
 width: 100%;
 }

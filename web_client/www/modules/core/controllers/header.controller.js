@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Global',
-    function ($scope, Global) {
-        $scope.global = Global;
+angular.module('core').controller('HeaderController', ['$scope', 'UserService',
+    function ($scope, UserService) {
+        $scope.logout = function () {
+            UserService.logout();
+        };
     }
 ]);
