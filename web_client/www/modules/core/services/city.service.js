@@ -1,5 +1,7 @@
 'use strict';
 
+// jshint ignore: start
+
 angular.module('core').factory('CityService', ['Restangular', '$q', '$timeout',
     function (Restangular, $q, $timeout) {
 
