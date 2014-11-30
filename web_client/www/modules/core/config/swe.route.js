@@ -4,7 +4,7 @@ angular.module('swe').config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
 
-        $stateProvider.state('/', {
+        $stateProvider.state('home', {
             url: '/',
             templateUrl: 'modules/core/views/home.view.html'
         })
@@ -17,6 +17,11 @@ angular.module('swe').config(['$stateProvider', '$urlRouterProvider',
         .state('signup', {
             url: '/signup',
             templateUrl: 'modules/core/views/signup.view.html'
+        })
+
+        .state('forgotPass', {
+            url: '/forgot-password',
+            templateUrl: 'modules/core/views/forgot-password.view.html'
         });
     }
 ]);
