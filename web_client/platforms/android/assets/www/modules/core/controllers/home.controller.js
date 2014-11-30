@@ -6,8 +6,6 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             isModelOpened = false,
             geocoder;
 
-        console.log('ulan');
-
         $scope.selectedToAdd = 0;
 
         $scope.alerts = [];
