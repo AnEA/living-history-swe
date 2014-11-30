@@ -14,10 +14,24 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
                 var deferred = $q.defer();
 
                 $timeout(function () {
-                    if (true) {
+                    if (email === 'test@test.com' && password === 'test') {
                         Global.user = user;
                         Global.authenticated = true;
                         deferred.resolve(user);
+                    } else {
+                        deferred.reject();
+                    }
+                }, 500);
+
+                return deferred.promise;
+            },
+
+            reset: function (email) {
+                var deferred = $q.defer();
+
+                $timeout(function () {
+                    if (email === 'test@test.com') {
+                        deferred.resolve();
                     } else {
                         deferred.reject();
                     }
