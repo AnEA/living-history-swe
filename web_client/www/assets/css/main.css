@@ -19,12 +19,26 @@ body, html,
    margin-right: auto !important; 
 }
 
-@media screen and (min-width: 768px) {
-  .modal-dialog {
-    padding-top: 130px;
-  }
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    img { max-width: 100%; }
 }
 
+@media only screen and (min-device-width : 480px) and (max-device-width : 640px) {
+    img { max-width: 100%; }
+}
+
+@media only screen and (min-device-width : 640px) and (max-device-width : 768px) {
+    img { max-width: 100%; }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    img { max-width: 100%; }
+}
+
+
+@media print {
+    img { max-width: 100%; }
+}
 .pac-controls {
   margin-top: 16px;
   border: 1px solid transparent;
