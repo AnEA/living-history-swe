@@ -35,6 +35,26 @@ body, html,
     img { max-width: 100%; }
 }
 
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+    #left_menu {
+        margin-top: 35px;
+        padding: 0;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 102px;
+        background: url("../images/light_noise_diagonal.png") repeat scroll 0 0 rgba(0,0,0,0);
+        height: 100%;
+        display: none;
+    }
+
+    .mobile_login {
+        display: inline-block;
+        margin-top: 5px;
+        height: 40px;
+    }
+}
+
 
 @media print {
     img { max-width: 100%; }
@@ -92,8 +112,8 @@ body, html,
     z-index: 1043;
 }
 
-.filter_modal {
-    margin-top: -82px;
+.modal {
+    top: 10%;
 }
 
 #location_modal span.label { margin-right: 3px; }
@@ -199,7 +219,6 @@ body, html,
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            height: 75%;
             overflow-y: auto;
         }
 

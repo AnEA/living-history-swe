@@ -22,6 +22,7 @@ module.exports = function (grunt) {
         projectFiles = [
             'www/config.js',
             'www/app.js',
+            'www/custom.js',
             'www/modules/core/*.js',
             'www/modules/core/**/*.js'
         ],
