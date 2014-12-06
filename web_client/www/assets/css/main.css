@@ -42,10 +42,6 @@ body, html,
         border-top: none;
     }
 
-    .memory_modal p.text-left {
-        min-height: 210px;
-    }
-
     .memory_modal .modal-footer .pager {
         margin: 1px 0;
     }
@@ -81,7 +77,7 @@ body, html,
     }
 
     .mobile_login {
-        display: inline-block;
+        display: inline-block !important;
         margin-top: 5px;
         height: 40px;
     }
