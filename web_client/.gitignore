@@ -3,3 +3,5 @@ www/lib
 .DS_Store
 www/build/
 npm-debug.log
+platforms/
+.idea/
