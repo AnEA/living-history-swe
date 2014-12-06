@@ -114,6 +114,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             });
 
             $modal.open({
+                windowClass: 'memory_modal',
                 templateUrl: 'modules/core/views/location-detail.view.html',
                 controller: 'LocationDetailController',
                 size: 'lg',

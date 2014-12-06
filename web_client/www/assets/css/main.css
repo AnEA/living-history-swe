@@ -21,6 +21,34 @@ body, html,
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     img { max-width: 100%; }
+    
+    .memory_hr {
+        display: none;
+    }
+
+    .memory_image {
+        min-height: 200px;
+        max-height: 200px;
+    }
+
+    #location_modal {
+        padding-bottom: 0;
+    }
+
+    .memory_modal .modal-footer {
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 1px;
+        border-top: none;
+    }
+
+    .memory_modal p.text-left {
+        min-height: 210px;
+    }
+
+    .memory_modal .modal-footer .pager {
+        margin: 1px 0;
+    }
 }
 
 @media only screen and (min-device-width : 480px) and (max-device-width : 640px) {
@@ -33,6 +61,10 @@ body, html,
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     img { max-width: 100%; }
+
+    .modal {
+        top: 10%;
+    }
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
@@ -110,10 +142,6 @@ body, html,
     top: -38px;
     left: 30%;
     z-index: 1043;
-}
-
-.modal {
-    top: 10%;
 }
 
 #location_modal span.label { margin-right: 3px; }
