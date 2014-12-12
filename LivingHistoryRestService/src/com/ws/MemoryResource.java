@@ -29,7 +29,6 @@ public class MemoryResource {
          // TODO get db connection
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
 
-
          // get data, send response
          UpdateResponseBean responseBean = new UpdateResponseBean();
          responseBean.setName("Boğaziçi Üniversitesi Kuzey Kampüsü");
