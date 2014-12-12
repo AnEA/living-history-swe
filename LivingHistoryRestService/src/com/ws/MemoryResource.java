@@ -27,8 +27,8 @@ public class MemoryResource {
    public Response getPerson(InputStream requestBean) {
       try {
          // TODO get db connection
-         BufferedReader ilkerk = new BufferedReader(new InputStreamReader(requestBean));
-         System.out.println(ilkerk.readLine());
+         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
+
 
          // get data, send response
          UpdateResponseBean responseBean = new UpdateResponseBean();
