@@ -1,0 +1,52 @@
+
+DBPEDIA (http://dbpedia.org/sparql)
+===================================
+SETTLEMENTS WITH POPULATION
+---------------------------
+SELECT DISTINCT *
+WHERE {
+   ?city rdf:type dbpedia-owl:Settlement ;
+         rdfs:label ?label;
+         dbpedia-owl:abstract ?abstract ;
+         dbpedia-owl:populationTotal ?pop ;
+         dbpedia-owl:country ?country ;
+         dbpprop:website ?website .
+   FILTER ( lang(?abstract) = 'en' && lang(?label) = 'en')
+}
+LIMIT 100
+
+COUNTRY AND CAPITAL BY LAT LON
+------------------------------
+SELECT distinct ?country ?capital ?caplat ?caplong
+WHERE {
+  ?country rdf:type dbpedia-owl:Country .
+  ?country  dbpedia-owl:capital ?capital .
+  OPTIONAL {
+    ?capital geo:lat ?caplat ;
+      geo:long ?caplong .
+  }
+}
+ORDER BY ?country
+
+
+
+LINKED GEO DATA (http://linkedgeodata.org/sparql)
+=================================================
+ALL PLACES WITH LABELS
+----------------------
+
+PREFIX lgdo:<http://linkedgeodata.org/ontology/> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+SELECT * 
+FROM <http://linkedgeodata.org> 
+WHERE 
+{
+   ?place a lgdo:Place .  
+   ?place rdfs:label ?label .
+}
+LIMIT 100
+
+
+
+
