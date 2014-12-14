@@ -1,7 +1,7 @@
 //STEP 1. Import required packages
 import java.sql.*;
 
-public class FirstExample {
+public class DatabaseConnection {
    // JDBC driver name and database URL
    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
    static final String DB_URL = "jdbc:mysql://localhost/EMP";
@@ -25,22 +25,22 @@ public class FirstExample {
       System.out.println("Creating statement...");
       stmt = conn.createStatement();
       String sql;
-      sql = "SELECT id, first, last, age FROM Employees";
+      sql = "SELECT place_id, placeName, latitude, longtitude FROM DB";
       ResultSet rs = stmt.executeQuery(sql);
 
       //STEP 5: Extract data from result set
       while(rs.next()){
          //Retrieve by column name
-         int id  = rs.getInt("id");
-         int age = rs.getInt("age");
-         String first = rs.getString("first");
-         String last = rs.getString("last");
+         int place_id  = rs.getInt("place_id");
+         String placeName = rs.getInt("placeName");
+         int latitude = rs.getInt("latitude");
+         int longtitude = rs.getInt("longtitude");
 
          //Display values
-         System.out.print("ID: " + id);
-         System.out.print(", Age: " + age);
-         System.out.print(", First: " + first);
-         System.out.println(", Last: " + last);
+         System.out.print("ID: " + place_id);
+         System.out.print(", Place: " + placeName);
+         System.out.print(", Latitude: " + latitude);
+         System.out.println(", Longtitude: " + longtitude);
       }
       //STEP 6: Clean-up environment
       rs.close();
