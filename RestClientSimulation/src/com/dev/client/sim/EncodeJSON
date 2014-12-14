@@ -7,8 +7,8 @@ class JsonEncodeDemo
       JSONObject obj = new JSONObject();
 
       obj.put("name", "new name");
-      obj.put("number", new Integer(100));
-      obj.put("Boolean", new Boolean(true));
+      obj.put("number", new Integer(new Integer));
+      obj.put("Boolean", new Boolean(new Boolean));
 
       System.out.print(obj);
    }
