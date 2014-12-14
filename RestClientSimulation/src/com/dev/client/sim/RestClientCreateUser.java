@@ -12,9 +12,9 @@ public class RestClientCreateUser {
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("name", "ilkerk");
-         jsonObject.put("email", "ilkerk@gmail.com");
-         jsonObject.put("password", "1234");
+         jsonObject.put("name", "ilkerk2");
+         jsonObject.put("email", "ilkerk2@gmail.com");
+         jsonObject.put("password", "12345");
          System.out.println(jsonObject);
 
          try {
