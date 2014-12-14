@@ -1,0 +1,15 @@
+import org.json.simple.JSONObject;
+
+class JsonEncodeDemo 
+{
+   public static void main(String[] args) 
+   {
+      JSONObject obj = new JSONObject();
+
+      obj.put("name", "new name");
+      obj.put("number", new Integer(100));
+      obj.put("Boolean", new Boolean(true));
+
+      System.out.print(obj);
+   }
+}
