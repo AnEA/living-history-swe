@@ -14,6 +14,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.swe.database.ConnectDatabase;
 
 import bean.ErrorResponseBean;
@@ -29,43 +32,52 @@ public class MemoryResource {
    @Produces(MediaType.APPLICATION_JSON)
    public Response getPerson(InputStream requestBean) {
       try {
-         // TODO get db connection
-         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
-         System.out.println(bufferedReader.readLine());
-         
+
+         // BufferedReader bufferedReader = new BufferedReader(new
+         // InputStreamReader(requestBean));
+         // System.out.println(bufferedReader.readLine());
+
          Connection conn = ConnectDatabase.getInstance().getConnection();
          Statement stmt = null;
          System.out.println("Creating statement...");
          stmt = conn.createStatement();
-         String sql;
-         sql = "SELECT * FROM place";
+         String sql = "SELECT * FROM place";
          ResultSet rs = stmt.executeQuery(sql);
-         
-         while(rs.next()){
-             //Retrieve by column name
-        	 String placeName = rs.getString("placeName");
-        	 String place = rs.getString("place_id");
-        	 double latitude = rs.getDouble("latitude");
-        	 double longitude = rs.getDouble("longtitude");
-        	 
 
-             //Display values
-             System.out.print("placeName: " + placeName);
-             System.out.print(", place: " + place);
-             System.out.print(", latitude: " + latitude);
-             System.out.println(", longitude: " + longitude);
-          }
+         JSONArray jArray = new JSONArray();
 
-         // get data, send response
-         UpdateResponseBean responseBean = new UpdateResponseBean();
-         responseBean.setName("Boğaziçi Üniversitesi Kuzey Kampüsü");
-         responseBean.setPlaceID("bogazici_kampus");
-         responseBean.setLatitude("41.085452");
-         responseBean.setLongitude("29.044493999999986");
-         responseBean.setMemories("author");
-         // insert update to db
-         System.out.println(responseBean.toString());
-         return Response.ok(responseBean.toString()).build();
+         while (rs.next()) {
+            // Retrieve by column name
+            String placeName = rs.getString("placeName");
+            String place = rs.getString("place_id");
+            double latitude = rs.getDouble("latitude");
+            double longitude = rs.getDouble("longtitude");
+
+            JSONObject jObj = new JSONObject();
+            jObj.put("name", placeName);
+            jObj.put("place_id", place);
+            jObj.put("latitude", latitude);
+            jObj.put("longitude", longitude);
+            jArray.put(jObj);
+
+            // Display values
+            System.out.print("placeName: " + placeName);
+            System.out.print(", place: " + place);
+            System.out.print(", latitude: " + latitude);
+            System.out.println(", longitude: " + longitude);
+         }
+
+//         // get data, send response
+//         UpdateResponseBean responseBean = new UpdateResponseBean();
+//         responseBean.setName("Boğaziçi Üniversitesi Kuzey Kampüsü");
+//         responseBean.setPlaceID("bogazici_kampus");
+//         responseBean.setLatitude("41.085452");
+//         responseBean.setLongitude("29.044493999999986");
+//         responseBean.setMemories("author");
+//         // insert update to db
+//         System.out.println(responseBean.toString());
+         //return Response.ok(responseBean.toString()).build();
+         return Response.ok(jArray.toString()).build();
       }
       catch (Exception e) {
          return Response.ok(new ErrorResponseBean(e)).build();

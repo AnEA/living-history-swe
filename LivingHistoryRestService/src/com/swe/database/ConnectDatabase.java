@@ -1,10 +1,13 @@
 package com.swe.database;
 
 import java.sql.*;
-
+/**
+ * 
+ * @Author ilkerk
+ */
 public class ConnectDatabase {
-	private static Connection connect;
 	private static ConnectDatabase instance;
+	// Local DB Connection Provided for now!!
 	private static String DB_URL = "jdbc:mysql://localhost:3306/livinghistory";
 	private static String DB_USER = "root";
 	private static String DB_PASSWORD = "Er72142167";
