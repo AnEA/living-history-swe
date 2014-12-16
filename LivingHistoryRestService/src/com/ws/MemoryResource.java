@@ -144,5 +144,4 @@ public class MemoryResource {
          return Response.ok(new ErrorResponseBean(e)).build();
       }
    }
-
 }
