@@ -12,24 +12,13 @@ import java.net.URLConnection;
 import org.json.JSONObject;
 
 /**
- * @author ilkerk
+ * @author ilker Karamanli
  * @summary Client Simulation of RestFul
  */
 
 public class RestClientSimulation {
    public static void main(String[] args) {
-      // String string = "";
       try {
-
-         // InputStream inputStream = new FileInputStream("/Users/yikaraman/Desktop/JSONFile.txt");
-         // InputStreamReader isReader = new InputStreamReader(inputStream);
-         // BufferedReader br = new BufferedReader(isReader);
-         // String line;
-         // while ((line = br.readLine()) != null) {
-         // string += line + "\n";
-         // }
-
-         // JSONObject jsonObject = new JSONObject(string);
          JSONObject jsonObject = new JSONObject();
          jsonObject.put("status", "Hellooo");
          System.out.println(jsonObject);
@@ -58,8 +47,6 @@ public class RestClientSimulation {
             System.out.println("\nError while calling REST Service");
             System.out.println(e);
          }
-
-         // br.close();
       }
       catch (Exception e) {
          e.printStackTrace();

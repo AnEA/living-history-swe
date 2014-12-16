@@ -9,24 +9,16 @@ import java.net.URLConnection;
 
 import org.json.JSONObject;
 
+/**
+ * @author Ilker Karamanli
+ */
 public class RestClientCreateMemory {
 
    public static void main(String[] args) {
-      // String string = "";
       try {
 
-         // InputStream inputStream = new
-         // FileInputStream("/Users/yikaraman/Desktop/JSONFile.txt");
-         // InputStreamReader isReader = new InputStreamReader(inputStream);
-         // BufferedReader br = new BufferedReader(isReader);
-         // String line;
-         // while ((line = br.readLine()) != null) {
-         // string += line + "\n";
-         // }
-
-         // JSONObject jsonObject = new JSONObject(string);
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("place_id", "Berlin");
+         jsonObject.put("place_id", "Berlin3");
          jsonObject.put("author", "ilkerk");
          jsonObject.put("imageUrl", "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg");
          jsonObject.put("content", "A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából");
@@ -59,8 +51,6 @@ public class RestClientCreateMemory {
             System.out.println("\nError while calling REST Service");
             System.out.println(e);
          }
-
-         // br.close();
       }
       catch (Exception e) {
          e.printStackTrace();

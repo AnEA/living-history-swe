@@ -9,6 +9,9 @@ import java.net.URLConnection;
 
 import org.json.JSONObject;
 
+/**
+ * @author Ilker Karamanli
+ */
 public class RestClientCreatePlace {
    public static void main(String[] args) {
       try {

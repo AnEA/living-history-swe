@@ -1,3 +1,4 @@
+
 package com.dev.client.sim;
 
 import java.io.BufferedReader;
@@ -8,11 +9,14 @@ import java.net.URLConnection;
 
 import org.json.JSONObject;
 
+/**
+ * @author Ilker Karamanli
+ */
 public class RestClientCreateUser {
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("name", "ilkerk2");
+         jsonObject.put("name", "ilkerk7");
          jsonObject.put("email", "ilkerk2@gmail.com");
          jsonObject.put("password", "12345");
          System.out.println(jsonObject);
@@ -41,8 +45,6 @@ public class RestClientCreateUser {
             System.out.println("\nError while calling REST Service");
             System.out.println(e);
          }
-
-         // br.close();
       }
       catch (Exception e) {
          e.printStackTrace();
