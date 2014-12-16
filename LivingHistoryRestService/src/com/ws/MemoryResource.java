@@ -26,6 +26,10 @@ import bean.ErrorResponseBean;
 
 import com.swe.database.ConnectDatabase;
 
+/**
+ * @author Ilker Karamanli
+ * @Summary Memory specific data handled here.
+ */
 @Stateless
 @Path("/memory")
 public class MemoryResource {
@@ -36,11 +40,6 @@ public class MemoryResource {
    @Produces(MediaType.APPLICATION_JSON)
    public Response getAllMemories(InputStream requestBean) {
       try {
-
-         // If you need to get data from request, you can parse here.
-         // BufferedReader bufferedReader = new BufferedReader(new
-         // InputStreamReader(requestBean));
-         // System.out.println(bufferedReader.readLine());
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          Statement stmt = null;
@@ -66,6 +65,7 @@ public class MemoryResource {
             ResultSet rsMem = stmtMem.executeQuery();
 
             while (rsMem.next()) {
+               @SuppressWarnings("unused")
                String place_id = rsMem.getString("place_id");
                String author = rsMem.getString("author");
                String image = rsMem.getString("image");
@@ -77,6 +77,7 @@ public class MemoryResource {
                JSONObject jObjMem = new JSONObject();
                jObjMem.put("author", author);
                jObjMem.put("imageUrl", image);
+               jObjMem.put("content", content);
                jObjMem.put("tags", tags);
                jObjMem.put("date", mem_date);
                jObjMem.put("active", active);
@@ -91,24 +92,8 @@ public class MemoryResource {
             jObj.put("longitude", longitude);
             jObj.put("memories", jArrayMemory);
             jArray.put(jObj);
-
-            // Display values
-            System.out.print("placeName: " + placeName);
-            System.out.print(", place: " + place);
-            System.out.print(", latitude: " + latitude);
-            System.out.println(", longitude: " + longitude);
          }
 
-         // // get data, send response
-         // UpdateResponseBean responseBean = new UpdateResponseBean();
-         // responseBean.setName("Boğaziçi Üniversitesi Kuzey Kampüsü");
-         // responseBean.setPlaceID("bogazici_kampus");
-         // responseBean.setLatitude("41.085452");
-         // responseBean.setLongitude("29.044493999999986");
-         // responseBean.setMemories("author");
-         // // insert update to db
-         // System.out.println(responseBean.toString());
-         // return Response.ok(responseBean.toString()).build();
          return Response.ok(jArray.toString()).build();
       }
       catch (Exception e) {
@@ -123,7 +108,6 @@ public class MemoryResource {
    public Response createMemory(InputStream requestBean) {
       try {
 
-         // If you need to get data from request, you can parse here.
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String place_id = obj.getString("place_id");
@@ -133,10 +117,10 @@ public class MemoryResource {
          String tags = obj.getString("tags");
          String date = obj.getString("date");
          boolean active = obj.getBoolean("active");
-         
+
          SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-         Date startDateParsed = format.parse(date);//parse(date);
-         java.sql.Date startDate = new java.sql.Date(startDateParsed.getTime());
+         Date startDateParsed = format.parse(date);
+         java.sql.Date dbDate = new java.sql.Date(startDateParsed.getTime());
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
@@ -146,12 +130,14 @@ public class MemoryResource {
          stmtMem.setString(3, imageUrl);
          stmtMem.setString(4, content);
          stmtMem.setString(5, tags);
-         stmtMem.setDate(6, startDate);
+         stmtMem.setDate(6, dbDate);
          stmtMem.setBoolean(7, active);
-         System.out.println("end of 1");
-         int row = stmtMem.executeUpdate();
-         System.out.println("end of ");
-         return Response.ok(obj.toString()).build();
+         stmtMem.executeUpdate();
+
+         JSONObject jObjResponse = new JSONObject();
+         jObjResponse.put("success", "true");
+
+         return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
       }
       catch (Exception e) {
          System.out.println(e.getMessage());
