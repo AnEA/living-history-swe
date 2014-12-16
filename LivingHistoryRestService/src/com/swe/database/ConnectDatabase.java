@@ -1,9 +1,10 @@
 package com.swe.database;
 
 import java.sql.*;
+
 /**
- * 
- * @Author ilkerk
+ * @author Ilker Karamanli
+ * @Summary ConnectDatabase Singleton
  */
 public class ConnectDatabase {
 	private static ConnectDatabase instance;

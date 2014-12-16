@@ -79,3 +79,12 @@ INSERT INTO memory
 values(
 "budapest_center", "John", "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg","A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából, valamint bizonyos pótanyagokból vízzel cefrézett, komlóval, illetve egyéb engedélyezett anyagokkal ízesített, sörélesztővel erjesztett, szén-dioxidban dús, alkoholtartalmú ital.", "budapest;beer;beerbike", '2010-11-03 00:00:01', TRUE
 );
+
+CREATE TABLE userinfo
+(
+id int NOT NULL AUTO_INCREMENT,
+nameinfo VARCHAR(64) NOT NULL,
+email TEXT character set utf8  NOT NULL,
+passwordinfo TEXT character set utf8,
+PRIMARY KEY (id)
+);

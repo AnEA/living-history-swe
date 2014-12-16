@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -25,7 +23,7 @@ import com.swe.database.ConnectDatabase;
 
 /**
  * @author Ilker Karamanli
- * @Summary Memory specific data handled here.
+ * @Summary Place specific data handled here.
  */
 @Stateless
 @Path("/place")

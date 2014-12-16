@@ -22,6 +22,10 @@ import bean.ErrorResponseBean;
 
 import com.swe.database.ConnectDatabase;
 
+/**
+ * @author Ilker Karamanli
+ * @Summary User specific data handled here.
+ */
 @Stateless
 @Path("/user")
 public class UserResource {
@@ -33,7 +37,6 @@ public class UserResource {
    public Response createUser(InputStream requestBean) {
       try {
 
-         // If you need to get data from request, you can parse here.
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String email = obj.getString("email");
@@ -46,8 +49,11 @@ public class UserResource {
          stmtMem.setString(1, name);
          stmtMem.setString(2, email);
          stmtMem.setString(3, password);
-         int row = stmtMem.executeUpdate();
-         return Response.ok(obj.toString()).build();
+         stmtMem.executeUpdate();
+
+         JSONObject jObjResponse = new JSONObject();
+         jObjResponse.put("success", "true");
+         return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
       }
       catch (Exception e) {
          System.out.println(e.getMessage());
@@ -61,8 +67,6 @@ public class UserResource {
    @Produces(MediaType.APPLICATION_JSON)
    public Response getUser(InputStream requestBean) {
       try {
-
-         // If you need to get data from request, you can parse here.
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String email = obj.getString("email");
@@ -82,17 +86,60 @@ public class UserResource {
                login = true;
             }
          }
+         JSONObject jObjResponse = new JSONObject();
+
          if (login) {
-            return Response.ok(obj.toString()).build();
+            jObjResponse.put("success", "true");
+            return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
          }
          else {
-            return Response.status(403).type("application/json").entity("Forbidden").build();
+            jObjResponse.put("success", "false");
+            return Response.status(403).type("application/json").entity(jObjResponse.toString()).build();
          }
-
       }
       catch (Exception e) {
          System.out.println(e.getMessage());
          return Response.ok(new ErrorResponseBean(e)).build();
       }
    }
+
+   // @POST
+   // @Path("/reset")
+   // @Consumes(MediaType.APPLICATION_JSON)
+   // @Produces(MediaType.APPLICATION_JSON)
+   // public Response getReset(InputStream requestBean) {
+   // try {
+   //
+   // // If you need to get data from request, you can parse here.
+   // BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
+   // JSONObject obj = new JSONObject(bufferedReader.readLine());
+   // String email = obj.getString("email");
+   //
+   // Connection conn = ConnectDatabase.getInstance().getConnection();
+   // CallableStatement stmtMem = null;
+   // stmtMem = conn.prepareCall("select * FROM userinfo where email='" + email + "' and passwordinfo='" + password + "';");
+   // ResultSet rs = stmtMem.executeQuery();
+   // boolean login = false;
+   // while (rs.next()) {
+   // String dbUsername = rs.getString("email");
+   // String dbPassword = rs.getString("passwordinfo");
+   //
+   // if (dbUsername.equals(email) && dbPassword.equals(password)) {
+   // System.out.println("OK");
+   // login = true;
+   // }
+   // }
+   // if (login) {
+   // return Response.ok(obj.toString()).build();
+   // }
+   // else {
+   // return Response.status(403).type("application/json").entity("Forbidden").build();
+   // }
+   //
+   // }
+   // catch (Exception e) {
+   // System.out.println(e.getMessage());
+   // return Response.ok(new ErrorResponseBean(e)).build();
+   // }
+   // }
 }
