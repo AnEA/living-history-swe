@@ -5,25 +5,12 @@
 angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$timeout',
     function (Restangular, Global, $q, $timeout) {
 
-        var user = {
-            'name': 'Test User'
-        };
-
         var UserService = {
             login: function (email, password) {
-                var deferred = $q.defer();
-
-                $timeout(function () {
-                    if (email === 'test@test.com' && password === 'test') {
-                        Global.user = user;
-                        Global.authenticated = true;
-                        deferred.resolve(user);
-                    } else {
-                        deferred.reject();
-                    }
-                }, 500);
-
-                return deferred.promise;
+                return Restangular.service('user').one('get').get({
+                    "email": email,
+                    "password": password
+                });
             },
 
             reset: function (email) {
