@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'CityService', 'MarkerService', 'Global',
-    function ($scope, $log, $timeout, $modal, GoogleMapApi, CityService, MarkerService, Global) {
+angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'MemoryService', 'MarkerService', 'Global',
+    function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global) {
         var modalInstance,
             isModelOpened = false,
             geocoder;
@@ -177,7 +177,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         GoogleMapApi.then(function () {
             geocoder = new google.maps.Geocoder();
 
-            CityService.getMemoriesOfCity('istanbul').then(function (places) {
+            MemoryService.getAllMemories().then(function (places) {
                 var bounds = new google.maps.LatLngBounds(),
                     newMarkers = [];
 

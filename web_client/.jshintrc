@@ -6,7 +6,8 @@
     "module": true,
     "_": true,
     "ApplicationConfiguration": true,
-    "google": true
+    "google": true,
+    "$": true
   },
   "globalstrict": true,
   "quotmark": true,
