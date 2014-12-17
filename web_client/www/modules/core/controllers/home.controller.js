@@ -250,12 +250,20 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                             return;
                         }
 
+                        var place = places[0];
                         var bounds = new google.maps.LatLngBounds();
-                        bounds.extend(places[0].geometry.location);
-                        addNewMarker(places[0].geometry.location.lat(),
-                            places[0].geometry.location.lng(), places[0].name);
+                        bounds.extend(place.geometry.location);
+                        addNewMarker(place.geometry.location.lat(),
+                            place.geometry.location.lng(), place.name);
 
                         setMapBounds(bounds);
+
+                        MemoryService.addPlace({
+                            "place_name": place.name,
+                            "place_id": place.place_id,
+                            "latitude": place.geometry.location.lat(),
+                            "longitude": place.geometry.location.lng()
+                        });
                     }
                 }
             }
