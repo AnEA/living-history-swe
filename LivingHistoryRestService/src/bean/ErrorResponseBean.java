@@ -4,7 +4,8 @@ package bean;
 import java.lang.reflect.Field;
 
 /**
- * @author ilkerk
+ * @author Ilker Karamanli
+ * @Summary ErrorBean
  */
 public class ErrorResponseBean {
 

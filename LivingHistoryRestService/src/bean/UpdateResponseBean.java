@@ -2,7 +2,8 @@
 package bean;
 
 /**
- * @author ilkerk
+ * @author Ilker Karamanli
+ * @Summary UpdateResponseBean
  */
 public class UpdateResponseBean {
 

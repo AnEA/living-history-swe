@@ -2,8 +2,6 @@
 package com.dev.client.sim;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -12,19 +10,19 @@ import java.net.URLConnection;
 import org.json.JSONObject;
 
 /**
- * @author ilker Karamanli
- * @summary Client Simulation of RestFul
+ * @author Ilker Karamanli
  */
+public class RestClientGetUser {
 
-public class RestClientSimulation {
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("status", "Hellooo");
+         jsonObject.put("email", "eser@gmail.com");
+         jsonObject.put("password", "1234");
          System.out.println(jsonObject);
 
          try {
-            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/memory/get");
+            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/user/get");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
