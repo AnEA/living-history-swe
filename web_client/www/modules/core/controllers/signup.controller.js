@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SignupController', ['$scope', 'UserService', '$timeout', '$state',
-    function ($scope, UserService, $timeout, $state) {
+angular.module('core').controller('SignupController', ['$scope', 'UserService', '$timeout', '$state', 'Global',
+    function ($scope, UserService, $timeout, $state, Global) {
         $scope.signup = function () {
             var user = {
                 'email': $scope.email,
@@ -14,6 +14,9 @@ angular.module('core').controller('SignupController', ['$scope', 'UserService', 
                     type: 'success',
                     msg: 'You are successfully registered! You are being redirected to homepage!'
                 }];
+
+                Global.user = user;
+                Global.authenticated = true;
 
                 $timeout(function () {
                     $state.go('home');

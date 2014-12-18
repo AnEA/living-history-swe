@@ -14,29 +14,13 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
             },
 
             reset: function (email) {
-                var deferred = $q.defer();
-
-                $timeout(function () {
-                    if (email === 'test@test.com') {
-                        deferred.resolve();
-                    } else {
-                        deferred.reject();
-                    }
-                }, 500);
-
-                return deferred.promise;
+                return Restangular.service('user').one('reset').customPOST({
+                    "email": email
+                });
             },
 
             register: function (user) {
-                var deferred = $q.defer();
-
-                $timeout(function () {
-                    Global.user = user;
-                    Global.authenticated = true;
-                    deferred.resolve();
-                }, 500);
-
-                return deferred.promise;
+                return Restangular.service('user').one('create').customPOST(user);
             },
 
             logout: function () {
