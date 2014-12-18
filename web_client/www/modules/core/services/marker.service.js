@@ -16,6 +16,9 @@ angular.module('core').factory('MarkerService',
 
         this.markers = [];
         this.filteredMarkers = [];
+        this.tagFilter = "";
+        this.minDate = 1900;
+        this.maxDate = 2015;
 
         return this;
     }

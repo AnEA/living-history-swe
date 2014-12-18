@@ -483,3 +483,7 @@ padding-top: 0;
 .login-box-plain form button {
 width: 100%;
 }
+
+.ngrs-range-slider, .ngrs-range-slider * {
+    margin-bottom: 5px;
+}
