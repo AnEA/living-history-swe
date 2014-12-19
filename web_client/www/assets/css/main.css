@@ -493,3 +493,7 @@ width: 100%;
     top: 50px;
     z-index: 99999;
 }
+
+.memory_image {
+    width: 100%;
+}
