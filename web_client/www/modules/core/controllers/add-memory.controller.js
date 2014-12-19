@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$modalInstance', '$filter', 'markers',
-    function ($scope, Global, $modalInstance, $filter, markers) {
+angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$modalInstance', '$filter', 'markers', 'MemoryService',
+    function ($scope, Global, $modalInstance, $filter, markers, MemoryService) {
         $scope.modes = [{
             name: 'Year',
             mode: 'year',
@@ -61,18 +61,23 @@ angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$
             if ($scope.myForm.$valid) {
                 var memory = {
                     'author': Global.user.name,
+                    'email': Global.user.email,
                     'imageUrl': 'http://lorempixel.com/400/300/city/',
                     'content': $scope.description,
                     'tags': $scope.tags.split(','),
                     'date': $scope.myDate,
-                    'active': true
+                    'active': true,
+                    places: []
                 };
 
                 _.forEach(markers, function (m) {
                     m.place.memories.push(memory);
+                    memory.places.push(m.place_id);
                 });
 
-                $modalInstance.close();
+                MemoryService.addMemory(memory).then(function() {
+                    $modalInstance.close();
+                });
             }
         };
     }

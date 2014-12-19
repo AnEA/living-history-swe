@@ -487,3 +487,9 @@ width: 100%;
 .ngrs-range-slider, .ngrs-range-slider * {
     margin-bottom: 5px;
 }
+
+.home .alert {
+    position: absolute;
+    top: 50px;
+    z-index: 99999;
+}

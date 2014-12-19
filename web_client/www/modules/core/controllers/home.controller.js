@@ -36,9 +36,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.filterIsOpen = false;
 
-        function addNewMarker(lat, lng, name) {
+        function addNewMarker(lat, lng, name, place_id) {
             var clickedMarker = {
-                id: 0,
+                id: place_id,
+                place_id: place_id,
                 place: {
                     name: name,
                     memories: []
@@ -254,7 +255,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         var bounds = new google.maps.LatLngBounds();
                         bounds.extend(place.geometry.location);
                         addNewMarker(place.geometry.location.lat(),
-                            place.geometry.location.lng(), place.name);
+                            place.geometry.location.lng(), place.name, place.id);
 
                         setMapBounds(bounds);
 
