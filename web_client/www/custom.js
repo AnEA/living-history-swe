@@ -12,6 +12,6 @@ angular.module('swe').directive('openMenu', function() {
 
 angular.module('swe').config(['RestangularProvider',
     function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('http://private-69827-swelivinghistory.apiary-mock.com/LivingHistoryRestService/rest');
+        RestangularProvider.setBaseUrl('/LivingHistoryRestService/rest');
     }
 ]);
