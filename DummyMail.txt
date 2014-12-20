@@ -1,0 +1,4 @@
+A dummy email address has been created for user management requirement of the application. 
+
+Email address: ilkerilker1111@gmail.com
+
