@@ -13,12 +13,14 @@ import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.media.json.internal.entity.JsonObjectProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,7 +36,7 @@ import com.swe.database.ConnectDatabase;
 @Path("/memory")
 public class MemoryResource {
 
-   @POST
+   @GET
    @Path("/get")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
@@ -65,6 +67,7 @@ public class MemoryResource {
             ResultSet rsMem = stmtMem.executeQuery();
 
             while (rsMem.next()) {
+               String id = rsMem.getString("id");
                @SuppressWarnings("unused")
                String place_id = rsMem.getString("place_id");
                String author = rsMem.getString("author");
@@ -75,10 +78,15 @@ public class MemoryResource {
                boolean active = rsMem.getBoolean("active");
 
                JSONObject jObjMem = new JSONObject();
+               jObjMem.put("memoryId", id);
                jObjMem.put("author", author);
                jObjMem.put("imageUrl", image);
                jObjMem.put("content", content);
-               jObjMem.put("tags", tags);
+               
+               //STring to array
+               String[] ilkerk = tags.split(";");
+               
+               jObjMem.put("tags", ilkerk);
                jObjMem.put("date", mem_date);
                jObjMem.put("active", active);
                jArrayMemory.put(jObjMem);
@@ -102,7 +110,7 @@ public class MemoryResource {
    }
 
    @POST
-   @Path("/creatememory")
+   @Path("/create")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Response createMemory(InputStream requestBean) {
@@ -110,13 +118,16 @@ public class MemoryResource {
 
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
-         String place_id = obj.getString("place_id");
+         
          String author = obj.getString("author");
+         String email = obj.getString("email");
          String imageUrl = obj.getString("imageUrl");
          String content = obj.getString("content");
-         String tags = obj.getString("tags");
+         JSONArray tags = (JSONArray) obj.get("tags");
          String date = obj.getString("date");
          boolean active = obj.getBoolean("active");
+         JSONArray places = (JSONArray) obj.get("places");
+         
 
          SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
          Date startDateParsed = format.parse(date);
@@ -124,15 +135,22 @@ public class MemoryResource {
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
-         stmtMem = conn.prepareCall("INSERT INTO memory (place_id, author, image, content, tags, mem_date, active) values(?,?,?,?,?,?,?);");
-         stmtMem.setString(1, place_id);
-         stmtMem.setString(2, author);
-         stmtMem.setString(3, imageUrl);
-         stmtMem.setString(4, content);
-         stmtMem.setString(5, tags);
-         stmtMem.setDate(6, dbDate);
-         stmtMem.setBoolean(7, active);
-         stmtMem.executeUpdate();
+         for (int i = 0; i < places.length(); i++) {
+            stmtMem = conn.prepareCall("INSERT INTO memory (place_id, author, image, content, tags, mem_date, active) values(?,?,?,?,?,?,?);");
+            stmtMem.setString(1, (String) places.get(i));
+            stmtMem.setString(2, author);
+            stmtMem.setString(3, imageUrl);
+            stmtMem.setString(4, content);
+            StringBuilder sbTags = new StringBuilder();
+            for (int j = 0; j < tags.length(); j++) {
+               sbTags.append(tags.get(j));
+               sbTags.append(";");
+            }
+            stmtMem.setString(5, sbTags.toString());
+            stmtMem.setDate(6, dbDate);
+            stmtMem.setBoolean(7, active);
+            stmtMem.executeUpdate();
+         }
 
          JSONObject jObjResponse = new JSONObject();
          jObjResponse.put("success", "true");

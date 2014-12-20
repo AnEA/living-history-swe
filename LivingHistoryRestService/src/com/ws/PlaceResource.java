@@ -40,16 +40,16 @@ public class PlaceResource {
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String place_id = obj.getString("place_id");
          String place_name = obj.getString("place_name");
-         String latitude = obj.getString("latitude");
-         String longitude = obj.getString("longitude");
+         double latitude = obj.getDouble("latitude");
+         double longitude = obj.getDouble("longitude");
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
          stmtMem = conn.prepareCall("INSERT INTO place (placeName, place_id, latitude, longtitude) values(?,?,?,?);");
          stmtMem.setString(1, place_name);
          stmtMem.setString(2, place_id);
-         stmtMem.setString(3, latitude);
-         stmtMem.setString(4, longitude);
+         stmtMem.setDouble(3, latitude);
+         stmtMem.setDouble(4, longitude);
          stmtMem.executeUpdate();
 
          JSONObject jObjResponse = new JSONObject();
