@@ -7,7 +7,7 @@ angular.module('core').factory('UserService', ['Restangular', 'Global', '$q', '$
 
         var UserService = {
             login: function (email, password) {
-                return Restangular.service('user').one('get').get({
+                return Restangular.service('user').one('get').customPOST({
                     "email": email,
                     "password": password
                 });
