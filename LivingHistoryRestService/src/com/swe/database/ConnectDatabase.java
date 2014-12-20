@@ -11,13 +11,13 @@ public class ConnectDatabase {
    private static ConnectDatabase instance;
    // Local DB Connection Provided for now!!
 
-   private static String          DB_URL      = "jdbc:mysql://localhost:3306/livinghistory";
-   private static String          DB_USER     = "root";
-   private static String          DB_PASSWORD = "Er72142167";
+//   private static String          DB_URL      = "jdbc:mysql://localhost:3306/livinghistory";
+//   private static String          DB_USER     = "root";
+//   private static String          DB_PASSWORD = "Er72142167";
 
-   // private static String DB_URL = "jdbc:mysql://localhost:3306/fall2014";
-   // private static String DB_USER = "fall2014";
-   // private static String DB_PASSWORD = "fall2014g1hjk";
+    private static String DB_URL = "jdbc:mysql://localhost:3306/fall2014";
+    private static String DB_USER = "fall2014";
+    private static String DB_PASSWORD = "fall2014g1hjk";
 
    private ConnectDatabase() {
       try {
