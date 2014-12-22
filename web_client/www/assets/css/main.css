@@ -45,23 +45,24 @@ body, html,
     .memory_modal .modal-footer .pager {
         margin: 1px 0;
     }
-}
-
-@media only screen and (min-device-width : 480px) and (max-device-width : 640px) {
-    img { max-width: 100%; }
-}
-
-@media only screen and (min-device-width : 640px) and (max-device-width : 768px) {
-    img { max-width: 100%; }
-}
-
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-    img { max-width: 100%; }
-
-    .modal {
-        top: 10%;
+	
+	.mobile_login {
+        display: inline-block !important;
+        margin-top: 5px;
+        height: 40px;
     }
 }
+
+@media only screen and (min-device-width : 480px) and (max-device-width : 1024px) {
+    img { max-width: 100%; }
+	.modal {
+        top: 10%;
+    } 
+	
+	}
+
+
+
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
     #left_menu {
@@ -76,12 +77,13 @@ body, html,
         display: none;
     }
 
-    .mobile_login {
+ /*   .mobile_login {
         display: inline-block !important;
         margin-top: 5px;
         height: 40px;
-    }
+    }*/
 }
+
 
 
 @media print {
