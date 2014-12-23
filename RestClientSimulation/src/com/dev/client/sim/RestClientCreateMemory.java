@@ -18,7 +18,7 @@ public class RestClientCreateMemory {
       try {
 
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("place_id", "Berlin3");
+         jsonObject.put("place_id", "Berlin4");
          jsonObject.put("author", "ilkerk");
          jsonObject.put("imageUrl", "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg");
          jsonObject.put("content", "A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából");
