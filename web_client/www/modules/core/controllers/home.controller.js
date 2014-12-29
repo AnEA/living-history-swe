@@ -10,6 +10,10 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.alerts = [];
 
+        $scope.updatePlace = function(place) {
+            MemoryService.updatePlace(place.place_id, place.name)
+        };
+
         $scope.map = {
             options: {
                 styles: [{
@@ -39,7 +43,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                                 if (results[0]) {
                                     $log.info('result: ' + results[0].address_components[0].short_name);
                                     addNewMarker(e.latLng.lat(), e.latLng.lng(), results[0].address_components[0].short_name,
-                                        e.latLng.toString().hashCode(), true);
+                                        e.latLng.toString().hashCode(), true, results[0].address_components);
                                 } else {
                                     $log.info('No results found');
                                 }
@@ -54,12 +58,13 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
         $scope.filterIsOpen = false;
 
-        function addNewMarker(lat, lng, name, place_id, _isEditable) {
+        function addNewMarker(lat, lng, name, place_id, _isEditable, addressComponents) {
             var clickedMarker = {
                 id: place_id,
                 place_id: place_id,
                 place: {
                     name: name,
+                    place_id: place_id,
                     memories: []
                 },
                 latitude: lat,
@@ -68,6 +73,15 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 isCustom: true
             };
 
+            MemoryService.addPlace({
+                "place_name": name,
+                "place_id": place_id,
+                "latitude": lat,
+                "longitude": lng,
+                "addressComponents": _.pluck(addressComponents, 'long_name')
+            });
+
+            $scope.customMarkerExists = true;
             $scope.activeMarkers.push(clickedMarker);
             $scope.$apply();
         }
@@ -275,16 +289,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         var bounds = new google.maps.LatLngBounds();
                         bounds.extend(place.geometry.location);
                         addNewMarker(place.geometry.location.lat(),
-                            place.geometry.location.lng(), place.name, place.id, false);
+                            place.geometry.location.lng(), place.name, place.id, false, place.address_components);
 
                         setMapBounds(bounds);
-
-                        MemoryService.addPlace({
-                            "place_name": place.name,
-                            "place_id": place.place_id,
-                            "latitude": place.geometry.location.lat(),
-                            "longitude": place.geometry.location.lng()
-                        });
                     }
                 }
             }

@@ -1,6 +1,12 @@
 <div class="fill home" ng-controller="HomeController">
+  <a class="btn btn-sm btn-primary top-btn" style="left: 300px;" ng-hide="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Add Location</a>
+  <a class="btn btn-sm btn-danger top-btn" style="left: 300px;" ng-show="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Cancel Location Mode</a>
+
+  <a class="btn btn-sm btn-primary top-btn" style="left: 400px;" ng-hide="isAddingLocation" ng-click="openFilterModal()">Filter Memories</a>
+
+
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  <div class="fill col-md-9" style="padding:0;" id="map_container">
+  <div class="fill" style="padding:0;" id="map_container" ng-class="{'col-md-9':customMarkerExists, 'col-md-12': !customMarkerExists}">
 
     <ui-gmap-google-map 
       center="map.center" zoom="map.zoom" draggable="true"
@@ -14,18 +20,16 @@
   </div>
 
   <div id="left_menu" style="margin-top:35px;padding:0;height:100%" class="col-md-3">
-    <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Add Location</a>
-    <a class="btn btn-sm btn-danger" ng-show="isAddingLocation" ng-click="isAddingLocation = !isAddingLocation">Cancel Location Mode</a>
-
-    <a class="btn btn-sm btn-primary" ng-hide="isAddingLocation" ng-click="openFilterModal()">Filter Memories</a>
-    <h3>Places</h3
+    <h3>Searched Places</h3
     <ul class="listrap">
       <li ng-repeat="marker in activeMarkers" ng-if="marker.isCustom" ng-class="{'active' : marker.isActive}">
         <button type="button" class="btn btn-warning btn-xs" title="Add" ng-click="selectThumb(marker)" ng-class="{'btn-success' : marker.isActive}">
             <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-ok' : marker.isActive}"></span>
           </button>
         <strong ng-if="!marker.isEditable" title="{{marker.place.name}}" ng-click="goToMarker(marker)">{{marker.place.name | cut:20}}</strong>
-        <a ng-if="marker.isEditable" href="" editable-text="marker.place.name">{{ marker.place.name || "empty" }}</a>
+        <a ng-if="marker.isEditable" href=""
+           editable-text="marker.place.name"
+           onaftersave="updatePlace(marker.place)">{{ marker.place.name || "empty" }}</a>
       </li>
     </ul>
     <button ng-show="selectedToAdd > 0" ng-click="addMemory()" type="button" class="btn btn-primary btn-lg" style="width:100%;">Add Memory To <br>({{selectedToAdd}}) Location</button>

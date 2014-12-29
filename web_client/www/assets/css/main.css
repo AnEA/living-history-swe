@@ -503,3 +503,9 @@ width: 100%;
 .memory_image {
     width: 100%;
 }
+
+.top-btn {
+    z-index: 1049;
+    position: absolute;
+    top: 10px;
+}

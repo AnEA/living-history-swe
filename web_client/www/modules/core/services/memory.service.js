@@ -13,6 +13,13 @@ angular.module('core').factory('MemoryService', ['Restangular', '$q', '$timeout'
                 return Restangular.service('place').one('add').customPOST(place);
             },
 
+            updatePlace: function(place_id, place_name) {
+                return Restangular.service('place').one('update').customPOST({
+                    place_id: place_id,
+                    place_name: place_name
+                });
+            },
+
             addMemory: function(memory) {
                 return Restangular.service('memory').one('create').customPOST(memory);
             }
