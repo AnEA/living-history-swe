@@ -1,5 +1,4 @@
 web_client/node_modules/
-web_client/public/lib
 .DS_Store
 web_client/public/build/
 ant_build/
