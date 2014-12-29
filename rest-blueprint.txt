@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://swe.cmpe.boun.edu.tr:8080/
+HOST: http://swe574.cmpe.boun.edu.tr:8080/LivingHistoryRestService/rest/
 
 # swe-living-history
 Living History Restful API serves data to web and android clients. It communicates using JSON data format.
@@ -7,7 +7,7 @@ Living History Restful API serves data to web and android clients. It communicat
 # Group Memories
 Notes related resources of the **Memories API**
 
-## Memories Collection [/memories]
+## Get Memory [/memory/get]
 ### List all Memories [GET]
 + Response 200 (application/json)
 
@@ -22,7 +22,7 @@ Notes related resources of the **Memories API**
                 "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/83817590.jpg",
                 "content": "Eskiden buralarda kar vardı.",
                 "tags": ["bogazici", "snow", "night", "fun"],
-                "date": "1413136221930",
+                "date": "2013-04-23T18:25:43.511Z",
                 "active": true
             }, {
                 "memoryId": 102,
@@ -30,7 +30,7 @@ Notes related resources of the **Memories API**
                 "imageUrl": "https://static.panoramio.com.storage.googleapis.com/photos/1920x1280/84588762.jpg",
                 "content": "Çok üşüyorduk",
                 "tags": ["bogazici", "winter", "snow", "snowstorm"],
-                "date": "1413136242988",
+                "date": "2014-04-23T18:25:43.511Z",
                 "active": true
             }]
         }, {
@@ -58,7 +58,63 @@ Notes related resources of the **Memories API**
                 "imageUrl": "http://www.hotel-rothof.de/wcms/Clients/134201037051031/Images/106351201042061116.jpg",
                 "content": "Im weiteren Sinn wird die Bezeichnung „Biergarten“ auch für andere gastronomische Einrichtungen im Freien verwendet, die in Bayern und in Österreich „Wirtsgarten“ oder „Gastgarten“ genannt werden.",
                 "tags": ["oktoberfest", "beer", "biergarten"],
-                "date": "2014-10-19T22:27:45.715Z",
+                "date": "2004-10-19T22:27:45.715Z",
+                "active": true
+            }]
+        }, {
+            "name": "Budapest Center",
+            "place_id": "budapest_center",
+            "latitude": 47.428473,
+            "longitude": 19.060808,
+            "memories": [{
+                "memoryId": 105,
+                "author": "John",
+                "imageUrl": "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg",
+                "content": "A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából, valamint bizonyos pótanyagokból vízzel cefrézett, komlóval, illetve egyéb engedélyezett anyagokkal ízesített, sörélesztővel erjesztett, szén-dioxidban dús, alkoholtartalmú ital.",
+                "tags": ["beer", "budapest", "beerbike"],
+                "date": "2012-04-23T18:25:43.511Z",
+                "active": true
+            }]
+        }]
+        
+## Filter Memories [/memory/filter]
+### Filter Memories [POST]
+
++ Request (application/json)
+
+        {
+            maxDate: 2014
+            minDate: 1900
+            search: "beer"
+        }
++ Response 200 (application/json)
+
+        [{
+            "name": "Oktoberfest München",
+            "place_id": "oktoberfest_munchen",
+            "latitude": 48.131785,
+            "longitude": 11.549619,
+            "memories": [{
+                "memoryId": 103,
+                "author": "Hans",
+                "imageUrl": "http://www.bigeales.com/wp-content/uploads/2014/01/Waitress-photo.jpg",
+                "content": "Das Oktoberfest in München (mundartlich Wiesn) ist das größte Volksfest der Welt. Es findet seit 1810 auf der Theresienwiese in der bayerischen Landeshauptstadt München statt und wird Jahr für Jahr von rund sechs Millionen Menschen besucht; 2012 waren es 6,4 Millionen Besucher.[1] Für das Oktoberfest brauen die Münchner Brauereien ein spezielles Bier, das eine Stammwürze von mindestens 13,5 % aufweisen muss[2] und folglich mehr Alkohol als gewöhnliches Vollbier enthält (2013 zwischen 5,8 und 6,4",
+                "tags": ["oktoberfest", "munchen", "beer", "fun"],
+                "date": "2012-04-23T18:25:43.511Z",
+                "active": true
+            }]
+        }, {
+            "name": "Biergarten",
+            "place_id": "biergarten",
+            "latitude": 48.126961,
+            "longitude": 11.621143,
+            "memories": [{
+                "memoryId": 104,
+                "author": "Julia",
+                "imageUrl": "http://www.hotel-rothof.de/wcms/Clients/134201037051031/Images/106351201042061116.jpg",
+                "content": "Im weiteren Sinn wird die Bezeichnung „Biergarten“ auch für andere gastronomische Einrichtungen im Freien verwendet, die in Bayern und in Österreich „Wirtsgarten“ oder „Gastgarten“ genannt werden.",
+                "tags": ["oktoberfest", "beer", "biergarten"],
+                "date": "2004-10-19T22:27:45.715Z",
                 "active": true
             }]
         }, {
@@ -77,24 +133,54 @@ Notes related resources of the **Memories API**
             }]
         }]
 
+## Create Memory [/memory/create]
 ### Create a Memory [POST]
 + Request (application/json)
 
-         {
-            "place_id": "budapest_center",
-            "author": "John",
-            "imageUrl": "http://www.stag-budapest.com/images/katakt/Beer%20bike%20in%20Budapest.jpg",
-            "content": "A sör (vagy régiesen ser, serital) (a Magyar Élelmiszerkönyv szerint) malátából, valamint bizonyos pótanyagokból vízzel cefrézett, komlóval, illetve egyéb engedélyezett anyagokkal ízesített, sörélesztővel erjesztett, szén-dioxidban dús, alkoholtartalmú ital.",
-            "tags": ["beer", "budapest", "beerbike"],
-            "date": "2012-04-23T18:25:43.511Z",
-            "active": true
+        {
+            "author": "Test User",
+            "email": "test@test.com",
+            "imageUrl": "http://lorempixel.com/400/300/city/",
+            "content": "dsd",
+            "tags": ["tag1", "tag2"],
+            "date": "2011-12-31T22:00:00.000Z",
+            "active": true,
+            "places": ["32c342ec5e45f0a91b0fea8c2551fb0ee9e0dee4", "32dsd2kjkdsakjk2kjkjdksdkjkdjsk2"]
         }
 
 + Response 201 (application/json)
 
         { "success": true }
         
-## Response Operations [/memories/response]
+## Add Place [/place/add]
+### Add a place [POST]
++ Request (application/json)
+
+         {
+            "place_name": "Oktoberfest München",
+            "place_id": "oktoberfest_munchen",
+            "latitude": 48.131785,
+            "longitude": 11.549619
+        }
+
++ Response 201 (application/json)
+
+        { "success": true }
+
+## Update a Place name [/place/update]
+### Update a place name [POST]
++ Request (application/json)
+
+         {
+            "place_name": "Oktoberfest München New",
+            "place_id": "oktoberfest_munchen"
+        }
+
++ Response 201 (application/json)
+
+        { "success": true }
+        
+## Response Operations [/memory/response]
 
 ### Send response for a Memory [POST]
 
@@ -110,7 +196,27 @@ Notes related resources of the **Memories API**
 
         { "success": true }
         
-## Filter Operations [/memories/filter]
+### Get responses for a Memory [GET]
+
++ Request (application/json)
+
+        {
+            "memoryId": 103
+        }
+
++ Response 201 (application/json)
+
+        [{
+            "sender": "Ahmet Mehmet",
+            "responseId": 3,
+            "date": "1418845797234"
+        }, {
+            "sender": "Yorumcu İki",
+            "responseId": 7,
+            "date": "1418845828425"
+        }]
+        
+## Filter Operations [/memory/filter]
 
 ### Filter Memories [GET]
 
@@ -171,8 +277,7 @@ Notes related resources of the **Memories API**
 # Group User
 Notes related resources of the **User API**
 
-## User Operations [/user]
-
+## Get User [/user/get]
 ### Retrieve a single USER [GET]
 
 + Request (application/json)
@@ -184,12 +289,17 @@ Notes related resources of the **User API**
 
 + Response 201 (application/json)
 
-        { "success": true }
+        { 
+            "success": true,
+            "name": "Test User",
+            "email": "test@test.com"
+        }
 
 + Response 403 (application/json)
 
         { "success": false }
-        
+
+## User Create [/user/create]        
 ### Create a User [POST]
 + Request (application/json)
 
