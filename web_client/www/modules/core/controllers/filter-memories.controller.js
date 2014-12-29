@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('FilterMemoriesController', ['$scope', 'MarkerService', '$filter', '$log',
-    function ($scope, MarkerService, $filter, $log) {
+angular.module('core').controller('FilterMemoriesController', ['$scope', 'MarkerService', '$filter', '$log', 'MemoryService',
+    function ($scope, MarkerService, $filter, $log, MemoryService) {
         $scope.hashtag = MarkerService.tagFilter;
 
         $scope.range = {
@@ -10,6 +10,7 @@ angular.module('core').controller('FilterMemoriesController', ['$scope', 'Marker
         };
 
         $scope.applyFilter = function () {
+            /*
             $log.info('filter ipnut ' + MarkerService.markers.length);
 
             var temp = $filter('dateFilter')(MarkerService.markers, new Date($scope.range.min + ''), new Date($scope.range.max + ''));
@@ -22,7 +23,16 @@ angular.module('core').controller('FilterMemoriesController', ['$scope', 'Marker
             MarkerService.tagFilter = $scope.hashtag;
 
             $log.info('filter output ' + MarkerService.filteredMarkers.length);
-            MarkerService.notifyObservers();
+            */
+
+            MemoryService.filterMemories({
+                minDate: $scope.range.min,
+                maxDate: $scope.range.max,
+                search: $scope.hashtag
+            }).then(function(markers) {
+                MarkerService.filteredMarkers = markers;
+                MarkerService.notifyObservers();
+            });
         };
     }
 ]);

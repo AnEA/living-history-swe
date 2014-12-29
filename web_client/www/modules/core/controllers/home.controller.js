@@ -139,11 +139,9 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         };
 
         $scope.markerSelected = function (marker) {
-            if (!marker.place.memories.length) {
-                return;
-            }
+            var place = (marker.place) ? marker.place : marker;
 
-            var activeMemories = _.filter(marker.place.memories, function (memory) {
+            var activeMemories = _.filter(place.memories, function (memory) {
                 return memory.active;
             });
 
@@ -154,7 +152,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 size: 'lg',
                 resolve: {
                     placeName: function () {
-                        return marker.place.name;
+                        return place.name;
                     },
 
                     memories: function () {

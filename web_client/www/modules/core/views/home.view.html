@@ -14,7 +14,7 @@
 
       <ui-gmap-search-box options="searchbox.options" template="searchbox.template" events="searchbox.events"></ui-gmap-search-box>
 
-      <ui-gmap-marker ng-repeat="m in activeMarkers" coords="m" click="markerSelected(m)" idkey="m.id"></ui-gmap-marker>
+      <ui-gmap-marker ng-repeat="m in activeMarkers" coords="m" click="markerSelected(m)" idkey="m.place_id"></ui-gmap-marker>
 
     </ui-gmap-google-map>
   </div>
