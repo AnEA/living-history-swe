@@ -12,6 +12,6 @@ angular.module('swe').directive('openMenu', function() {
 
 angular.module('swe').config(['RestangularProvider',
     function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('/LivingHistoryRestService/rest');
+        RestangularProvider.setBaseUrl('http://swe574.cmpe.boun.edu.tr:8080/LivingHistoryRestService/rest');
     }
 ]);

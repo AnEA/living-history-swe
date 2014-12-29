@@ -204,6 +204,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                     bounds.extend(location);
                 });
 
+                newMarkers = $filter('filterByTag')(newMarkers, '');
                 $scope.activeMarkers = newMarkers;
                 MarkerService.markers = newMarkers;
 

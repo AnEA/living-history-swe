@@ -57,7 +57,11 @@ body, html,
     img { max-width: 100%; }
 	.modal {
         top: 10%;
-    } 
+    }
+
+    .listrap {
+        max-height: 600px;
+    }
 	
 	}
 
