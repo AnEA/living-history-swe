@@ -17,6 +17,7 @@ module.exports = function (grunt) {
             'www/lib/angular-rangeslider/angular.rangeSlider.js',
             'www/lib/moment/moment.js',
             'www/lib/angular-moment/angular-moment.js',
+            'www/lib/angular-xeditable/dist/js/xeditable.js',
             'www/lib/ng-file-upload/angular-file-upload.js'
         ],
 

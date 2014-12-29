@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'MemoryService', 'MarkerService', 'Global',
-    function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global) {
+angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'MemoryService', 'MarkerService', 'Global', '$filter',
+    function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global, $filter) {
         var modalInstance,
             isModelOpened = false,
             geocoder;
@@ -28,15 +28,33 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             zoom: 12,
             bounds: null,
             events: {
-                click: function () { //mapModel, eventName, originalEventArgs
+                click: function (mapModel, eventName, originalEventArgs) {
+                    if ($scope.isAddingLocation) {
+                        var e = originalEventArgs[0];
 
+                        geocoder.geocode({
+                            'latLng': e.latLng
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[0]) {
+                                    $log.info('result: ' + results[0].address_components[0].short_name);
+                                    addNewMarker(e.latLng.lat(), e.latLng.lng(), results[0].address_components[0].short_name,
+                                        e.latLng.toString().hashCode(), true);
+                                } else {
+                                    $log.info('No results found');
+                                }
+                            } else {
+                                $log.info('Geocoder failed due to: ' + status);
+                            }
+                        });
+                    }
                 }
-            },
+            }
         };
 
         $scope.filterIsOpen = false;
 
-        function addNewMarker(lat, lng, name, place_id) {
+        function addNewMarker(lat, lng, name, place_id, _isEditable) {
             var clickedMarker = {
                 id: place_id,
                 place_id: place_id,
@@ -46,6 +64,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 },
                 latitude: lat,
                 longitude: lng,
+                isEditable: _isEditable,
                 isCustom: true
             };
 
@@ -256,7 +275,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         var bounds = new google.maps.LatLngBounds();
                         bounds.extend(place.geometry.location);
                         addNewMarker(place.geometry.location.lat(),
-                            place.geometry.location.lng(), place.name, place.id);
+                            place.geometry.location.lng(), place.name, place.id, false);
 
                         setMapBounds(bounds);
 
