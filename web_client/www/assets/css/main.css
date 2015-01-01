@@ -509,3 +509,11 @@ width: 100%;
     position: absolute;
     top: 10px;
 }
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 78%;
+}

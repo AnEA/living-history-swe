@@ -6,7 +6,7 @@
 
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  <div class="fill" style="padding:0;" id="map_container" ng-class="{'col-md-9':customMarkerExists, 'col-md-12': !customMarkerExists}">
+  <div class="fill" style="padding:0;float:left;" id="map_container" ng-class="{'half-width':customMarkerExists, 'full-width': !customMarkerExists}">
 
     <ui-gmap-google-map 
       center="map.center" zoom="map.zoom" draggable="true"
@@ -19,7 +19,7 @@
     </ui-gmap-google-map>
   </div>
 
-  <div id="left_menu" style="margin-top:35px;padding:0;height:100%" class="col-md-3">
+  <div id="left_menu" style="margin-top:35px;padding:0;height:100%;width:20%;float:left;">
     <h3>Searched Places</h3
     <ul class="listrap">
       <li ng-repeat="marker in activeMarkers" ng-if="marker.isCustom" ng-class="{'active' : marker.isActive}">
