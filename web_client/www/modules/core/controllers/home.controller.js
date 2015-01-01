@@ -4,6 +4,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
     function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global, $filter) {
         var modalInstance,
             isModelOpened = false,
+            allMarkers = [],
             geocoder;
 
         $scope.selectedToAdd = 0;
@@ -145,21 +146,26 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 return memory.active;
             });
 
-            $modal.open({
-                windowClass: 'memory_modal',
-                templateUrl: 'modules/core/views/location-detail.view.html',
-                controller: 'LocationDetailController',
-                size: 'lg',
-                resolve: {
-                    placeName: function () {
-                        return place.name;
-                    },
+            if ($scope.isAddingLocation) {
+                $scope.customMarkerExists = true;
+                marker.isCustom = true;
+            } else {
+                $modal.open({
+                    windowClass: 'memory_modal',
+                    templateUrl: 'modules/core/views/location-detail.view.html',
+                    controller: 'LocationDetailController',
+                    size: 'lg',
+                    resolve: {
+                        placeName: function () {
+                            return place.name;
+                        },
 
-                    memories: function () {
-                        return activeMemories;
+                        memories: function () {
+                            return activeMemories;
+                        }
                     }
-                }
-            });
+                });
+            }
         };
 
         $scope.addMemory = function () {
@@ -238,6 +244,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 newMarkers = $filter('filterByTag')(newMarkers, '');
                 $scope.activeMarkers = newMarkers;
                 MarkerService.markers = newMarkers;
+                allMarkers = newMarkers;
 
                 setMapBounds(bounds);
             });
@@ -284,11 +291,18 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                         }
 
                         var place = places[0];
+
+                        var existingMarker = _.find(allMarkers, {place_id: place.id});
+
+                        if (existingMarker) {
+                            existingMarker.isCustom = true;
+                            $scope.customMarkerExists = true;
+                        } else {
+                            addNewMarker(place.geometry.location.lat(),
+                                place.geometry.location.lng(), place.name, place.id, false, place.address_components);
+                        }
                         var bounds = new google.maps.LatLngBounds();
                         bounds.extend(place.geometry.location);
-                        addNewMarker(place.geometry.location.lat(),
-                            place.geometry.location.lng(), place.name, place.id, false, place.address_components);
-
                         setMapBounds(bounds);
                     }
                 }
