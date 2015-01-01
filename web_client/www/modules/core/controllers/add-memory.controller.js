@@ -81,6 +81,7 @@ angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$
             if ($scope.myForm.$valid) {
                 var memory = {
                     'author': Global.user.name,
+                    'title': $scope.title,
                     'email': Global.user.email,
                     'imageUrl': image_url,
                     'content': $scope.description,
