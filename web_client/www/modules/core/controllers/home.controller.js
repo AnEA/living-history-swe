@@ -218,6 +218,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
             MemoryService.getAllMemories().then(function (places) {
                 var bounds = new google.maps.LatLngBounds(),
                     newMarkers = [];
+                window.dispatchEvent(new Event('resize'));
 
                 _(places).forEach(function (place) {
                     var location = new google.maps.LatLng(place.latitude, place.longitude),
