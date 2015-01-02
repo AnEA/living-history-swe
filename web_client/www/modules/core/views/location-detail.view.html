@@ -4,21 +4,43 @@
     <h4 class="modal-title" id="myModalLabel">{{placeName}}</h4>
   </div>
   <div id="location_modal" class="modal-body">
-    <center>
-      <img ng-src="{{currentMemory.imageUrl}}" name="aboutme" border="0" class="memory_image img-rounded">
-      </a>
-      <h3 class="media-heading">{{currentMemory.author}}
-        <small am-time-ago="currentMemory.date">{{currentMemory.date}}</small>
-      </h3>
-      <span ng-repeat="tag in currentMemory.tags" class="label" ng-class="tagLabels[$index]">
-        #{{tag}}
-      </span>
-    </center>
-    <hr class="memory_hr">
+    <img ng-src="{{currentMemory.imageUrl}}" name="aboutme" border="0" class="memory_image img-rounded">
+    <div style="text-align: center;">
+      <div>
+        <h3 class="media-heading">{{currentMemory.author}}
+          <small am-time-ago="currentMemory.date">{{currentMemory.date}}</small>
+        </h3>
+        <span ng-repeat="tag in currentMemory.tags" class="label" ng-class="tagLabels[$index]">
+          #{{tag}}
+        </span>
+      </div>
+      <div style="text-align: center;padding-top: 10px;">
+        <div class="btn-group dropup" dropdown style="float:left; text-align: left;">
+          <button type="button" class="btn btn-success dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Send Response <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="response in responses"><a href="" ng-click="sendResponse($index)">{{response}}</a></li>
+          </ul>
+        </div>
+        <div class="btn-group dropup" dropdown is-open="status.rightDropdownOpen" style="float: right;text-align: left;">
+          <button type="button" class="btn btn-danger dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Show Responses <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" style="width: 500px;margin-left: -375px;min-height: 100px;">
+            <li ng-repeat="memoryResponse in memoryResponses">
+              <span href="#"><b>{{memoryResponse.sender}} responded:</b> {{memoryResponse.responseText}}
+                <i style="float:right;" am-time-ago="memoryResponse.date"></i>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <hr class="memory_hr" style="margin-top: 40px;">
       <p class="text-left"><strong>{{currentMemory.title}}: </strong>
         <br> {{currentMemory.content}}</p>
       <br>
-    </center>
+    </div>
   </div>
   <div class="modal-footer">
     <script id="template/pagination/pager.html" type="text/ng-template">
