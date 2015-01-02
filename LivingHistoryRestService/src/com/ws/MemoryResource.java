@@ -20,7 +20,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.media.json.internal.entity.JsonObjectProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -53,7 +52,7 @@ public class MemoryResource {
          JSONArray jArray = new JSONArray();
          while (rs.next()) {
             // Retrieve by column name
-            String placeName = rs.getString("placeName");
+            String placeName = rs.getString("place_name");
             String place = rs.getString("place_id");
             double latitude = rs.getDouble("latitude");
             double longitude = rs.getDouble("longtitude");
@@ -67,30 +66,28 @@ public class MemoryResource {
             ResultSet rsMem = stmtMem.executeQuery();
 
             while (rsMem.next()) {
-               String id = rsMem.getString("id");
+               String memory_id = rsMem.getString("memory_id");
                @SuppressWarnings("unused")
                String place_id = rsMem.getString("place_id");
+               String title = rsMem.getString("title");
                String author = rsMem.getString("author");
-               String image = rsMem.getString("image");
+               String image = rsMem.getString("image_url");
                String content = rsMem.getString("content");
                String tags = rsMem.getString("tags");
                Date mem_date = rsMem.getDate("mem_date");
                boolean active = rsMem.getBoolean("active");
 
                JSONObject jObjMem = new JSONObject();
-               jObjMem.put("memoryId", id);
+               jObjMem.put("memoryId", memory_id);
+               jObjMem.put("title", title);
                jObjMem.put("author", author);
                jObjMem.put("imageUrl", image);
                jObjMem.put("content", content);
-               
-               //STring to array
-               String[] ilkerk = tags.split(";");
-               
-               jObjMem.put("tags", ilkerk);
+               String[] tagsArray = tags.split(";");
+               jObjMem.put("tags", tagsArray);
                jObjMem.put("date", mem_date);
                jObjMem.put("active", active);
                jArrayMemory.put(jObjMem);
-
             }
 
             JSONObject jObj = new JSONObject();
@@ -120,6 +117,7 @@ public class MemoryResource {
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          
          String author = obj.getString("author");
+         String title = obj.getString("title");
          String email = obj.getString("email");
          String imageUrl = obj.getString("imageUrl");
          String content = obj.getString("content");
@@ -128,7 +126,6 @@ public class MemoryResource {
          boolean active = obj.getBoolean("active");
          JSONArray places = (JSONArray) obj.get("places");
          
-
          SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
          Date startDateParsed = format.parse(date);
          java.sql.Date dbDate = new java.sql.Date(startDateParsed.getTime());
@@ -136,19 +133,20 @@ public class MemoryResource {
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
          for (int i = 0; i < places.length(); i++) {
-            stmtMem = conn.prepareCall("INSERT INTO memory (place_id, author, image, content, tags, mem_date, active) values(?,?,?,?,?,?,?);");
+            stmtMem = conn.prepareCall("INSERT INTO memory (place_id, title, author, image_url, content, tags, mem_date, active) values(?,?,?,?,?,?,?,?);");
             stmtMem.setString(1, (String) places.get(i));
-            stmtMem.setString(2, author);
-            stmtMem.setString(3, imageUrl);
-            stmtMem.setString(4, content);
+            stmtMem.setString(2, title);
+            stmtMem.setString(3, author);
+            stmtMem.setString(4, imageUrl);
+            stmtMem.setString(5, content);
             StringBuilder sbTags = new StringBuilder();
             for (int j = 0; j < tags.length(); j++) {
                sbTags.append(tags.get(j));
                sbTags.append(";");
             }
-            stmtMem.setString(5, sbTags.toString());
-            stmtMem.setDate(6, dbDate);
-            stmtMem.setBoolean(7, active);
+            stmtMem.setString(6, sbTags.toString());
+            stmtMem.setDate(7, dbDate);
+            stmtMem.setBoolean(8, active);
             stmtMem.executeUpdate();
          }
 
