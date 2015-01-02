@@ -17,8 +17,8 @@ public class RestClientGetUser {
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("email", "eser@gmail.com");
-         jsonObject.put("password", "1234");
+         jsonObject.put("email", "ilkerk2@gmail.com");
+         jsonObject.put("password", "12345");
          System.out.println(jsonObject);
 
          try {
