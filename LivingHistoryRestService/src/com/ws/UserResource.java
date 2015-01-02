@@ -80,10 +80,12 @@ public class UserResource {
          stmtMem = conn.prepareCall("select * FROM userinfo where email='" + email + "' and passwordinfo='" + password + "';");
          ResultSet rs = stmtMem.executeQuery();
          boolean login = false;
+         String nameinfo = null;
          while (rs.next()) {
             String dbUsername = rs.getString("email");
             String dbPassword = rs.getString("passwordinfo");
-
+            nameinfo = rs.getString("nameinfo");
+            
             if (dbUsername.equals(email) && dbPassword.equals(password)) {
                System.out.println("OK");
                login = true;
@@ -94,8 +96,7 @@ public class UserResource {
          if (login) {
             jObjResponse.put("success", "true");
             jObjResponse.put("email", email);
-            // TODO Get NAME From db
-            jObjResponse.put("name", email);
+            jObjResponse.put("name", nameinfo);
             return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
          }
          else {
