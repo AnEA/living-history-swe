@@ -45,7 +45,7 @@ public class PlaceResource {
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
-         stmtMem = conn.prepareCall("INSERT INTO place (placeName, place_id, latitude, longtitude) values(?,?,?,?);");
+         stmtMem = conn.prepareCall("INSERT INTO place (place_name, place_id, latitude, longtitude) values(?,?,?,?);");
          stmtMem.setString(1, place_name);
          stmtMem.setString(2, place_id);
          stmtMem.setDouble(3, latitude);
