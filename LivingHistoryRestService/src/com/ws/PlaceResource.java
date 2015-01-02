@@ -62,5 +62,33 @@ public class PlaceResource {
          return Response.ok(new ErrorResponseBean(e)).build();
       }
    }
+   
+   @POST
+   @Path("/update")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response updatePlaceName(InputStream requestBean) {
+      try {
+
+         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
+         JSONObject obj = new JSONObject(bufferedReader.readLine());
+         String place_id = obj.getString("place_id");
+         String place_name = obj.getString("place_name");
+
+         Connection conn = ConnectDatabase.getInstance().getConnection();
+         CallableStatement stmtMem = null;
+         stmtMem = conn.prepareCall("update place set place_name='" + place_name + "' where place_id='" + place_id + "'");
+         stmtMem.executeUpdate();
+
+         JSONObject jObjResponse = new JSONObject();
+         jObjResponse.put("success", "true");
+
+         return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
+      }
+      catch (Exception e) {
+         System.out.println(e.getMessage());
+         return Response.ok(new ErrorResponseBean(e)).build();
+      }
+   }
 
 }
