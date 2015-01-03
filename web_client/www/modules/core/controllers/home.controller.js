@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'MemoryService', 'MarkerService', 'Global', '$filter',
-    function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global, $filter) {
+angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout', '$modal', 'GoogleMapApi'.ns(), 'MemoryService', 'MarkerService', 'Global', '$filter', 'Countries',
+    function ($scope, $log, $timeout, $modal, GoogleMapApi, MemoryService, MarkerService, Global, $filter, Countries) {
         var modalInstance,
             isModelOpened = false,
             allMarkers = [],
@@ -74,12 +74,24 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
                 isCustom: true
             };
 
+            var components = [];
+            _.forEach(addressComponents, function(c) {
+                if (c.types.indexOf('country') > -1) {
+                    var continent = Countries[c.short_name];
+                    if (continent) {
+                        components.push(continent);
+                    }
+                } else {
+                    components.push(c.long_name);
+                }
+            });
+
             MemoryService.addPlace({
                 "place_name": name,
                 "place_id": place_id,
                 "latitude": lat,
                 "longitude": lng,
-                "addressComponents": _.pluck(addressComponents, 'long_name')
+                "addressComponents": components
             });
 
             $scope.customMarkerExists = true;

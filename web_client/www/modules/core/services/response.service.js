@@ -12,7 +12,8 @@ angular.module('core').factory('ResponseService', ['Restangular', 'Global',
                 return Restangular.service('memory').one('response').customPOST({
                     responseId: responseId,
                     memoryId: memoryId,
-                    user: Global.user ? Global.user.email : 'test'
+                    user: Global.user ? Global.user.email : 'test',
+                    date: new Date().getTime()
                 });
             },
 
