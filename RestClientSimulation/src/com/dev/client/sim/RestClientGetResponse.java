@@ -8,19 +8,16 @@ import java.net.URLConnection;
 
 import org.json.JSONObject;
 
-public class RestClientSendResponse {
+public class RestClientGetResponse {
 
    public static void main(String[] args) {
       try {
 
          JSONObject jsonObject = new JSONObject();
-         
-         jsonObject.put("responseId", "105");
-         jsonObject.put("user", "test2@test2.com");
          jsonObject.put("memoryId", "4");
 
          try {
-            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/memory/response");
+            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/memory/getresponse");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
