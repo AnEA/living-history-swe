@@ -22,6 +22,11 @@ angular.module('core').controller('SigninController', ['$scope', 'UserService', 
                         msg: 'Incorrect Username or Password!'
                     }];
                 }
+            }, function() {
+                $scope.alerts = [{
+                    type: 'danger',
+                    msg: 'Incorrect Username or Password!'
+                }];
             });
         };
 

@@ -10,7 +10,7 @@ angular.module('core').factory('MemoryService', ['Restangular', '$q', '$timeout'
             },
 
             filterMemories: function(filterObject) {
-                return Restangular.service('memory').one('filter').customPOST(filterObject);
+                return Restangular.service('search').one('filter').customPOST(filterObject);
             },
 
             addPlace: function(place) {

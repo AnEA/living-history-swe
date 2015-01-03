@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('FilterMemoriesController', ['$scope', 'MarkerService', '$filter', '$log', 'MemoryService',
-    function ($scope, MarkerService, $filter, $log, MemoryService) {
+angular.module('core').controller('FilterMemoriesController', ['$scope', 'MarkerService', '$filter', '$log', 'MemoryService', '$modal',
+    function ($scope, MarkerService, $filter, $log, MemoryService, $modal) {
         $scope.hashtag = MarkerService.tagFilter;
 
         $scope.range = {
@@ -25,13 +25,37 @@ angular.module('core').controller('FilterMemoriesController', ['$scope', 'Marker
             $log.info('filter output ' + MarkerService.filteredMarkers.length);
             */
 
+            function showNoMemoryError() {
+                var _modalData = {
+                    message: 'No related memory has been found!'
+                };
+
+                $modal.open({
+                    templateUrl: 'modules/core/views/error-modal.view.html',
+                    controller: 'GenericModalController',
+                    size: 'sm',
+                    resolve: {
+                        modalData: function () {
+                            return _modalData;
+                        }
+                    }
+                });
+            }
+
             MemoryService.filterMemories({
                 minDate: $scope.range.min,
                 maxDate: $scope.range.max,
                 search: $scope.hashtag
             }).then(function(markers) {
-                MarkerService.filteredMarkers = markers;
-                MarkerService.notifyObservers();
+                var memories = markers.memories;
+                if (memories !== 'No data Available') {
+                    MarkerService.filteredMarkers = memories;
+                    MarkerService.notifyObservers();
+                } else {
+                    showNoMemoryError();
+                }
+            }, function() {
+                showNoMemoryError();
             });
         };
     }
