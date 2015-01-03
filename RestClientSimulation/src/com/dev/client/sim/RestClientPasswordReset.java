@@ -8,6 +8,9 @@ import java.net.URLConnection;
 
 import org.json.JSONObject;
 
+/**
+ * @author Ilker Karamanli
+ */
 public class RestClientPasswordReset {
    
    public static void main(String[] args) {

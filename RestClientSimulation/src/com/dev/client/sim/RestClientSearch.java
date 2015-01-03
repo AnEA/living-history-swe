@@ -1,4 +1,3 @@
-
 package com.dev.client.sim;
 
 import java.io.BufferedReader;
@@ -12,18 +11,16 @@ import org.json.JSONObject;
 /**
  * @author Ilker Karamanli
  */
-public class RestClientCreatePlace {
+public class RestClientSearch {
+   
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("place_id", "London Bridge");
-         jsonObject.put("place_name", "London2");
-         jsonObject.put("latitude", "23.343534");
-         jsonObject.put("longitude", "54.5345254");
+         jsonObject.put("search", "snow");
          System.out.println(jsonObject);
 
          try {
-            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/place/add");
+            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/search/get");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
@@ -51,4 +48,5 @@ public class RestClientCreatePlace {
          e.printStackTrace();
       }
    }
+
 }
