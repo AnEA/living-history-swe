@@ -19,7 +19,7 @@ public class sendEmail {
 
       String from = "yigitboun@gmail.com";
 
-      String emailCreate = "<p>Hi <br />You have just joined the world's largest community of Living History. <br /> " +
+      String emailCreate = "<p>Hi <br />Welcome again the world's largest community of Living History. <br /> " +
 
       "<p>Now, you\'ll have full access to website and future notifications will be sent to this email address.</p>" +
 
