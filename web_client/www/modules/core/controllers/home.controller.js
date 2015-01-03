@@ -12,7 +12,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
         $scope.alerts = [];
 
         $scope.updatePlace = function(place) {
-            MemoryService.updatePlace(place.place_id, place.name)
+            MemoryService.updatePlace('' + place.place_id, place.name)
         };
 
         $scope.map = {
@@ -88,7 +88,7 @@ angular.module('core').controller('HomeController', ['$scope', '$log', '$timeout
 
             MemoryService.addPlace({
                 "place_name": name,
-                "place_id": place_id,
+                "place_id": '' + place_id,
                 "latitude": lat,
                 "longitude": lng,
                 "addressComponents": components

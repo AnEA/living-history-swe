@@ -93,7 +93,7 @@ angular.module('core').controller('AddMemoryController', ['$scope', 'Global', '$
 
                 _.forEach(markers, function (m) {
                     m.place.memories.push(memory);
-                    memory.places.push(m.place_id);
+                    memory.places.push('' + m.place_id);
                 });
 
                 MemoryService.addMemory(memory).then(function() {
