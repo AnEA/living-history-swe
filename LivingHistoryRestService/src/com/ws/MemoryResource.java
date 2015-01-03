@@ -173,7 +173,7 @@ public class MemoryResource {
 
          String memoryId = obj.getString("memoryId");
          String user = obj.getString("user");
-         String responseId = obj.getString("responseId");
+         int responseId = obj.getInt("responseId");
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
@@ -181,7 +181,7 @@ public class MemoryResource {
          stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id, response_date) values(?,?,?,?);");
 
          java.sql.Date d = new java.sql.Date(System.currentTimeMillis());
-         stmtMem.setString(1, responseId);
+         stmtMem.setString(1, String.valueOf(responseId));
          stmtMem.setString(2, user);
          stmtMem.setString(3, memoryId);
          stmtMem.setDate(4, d);
@@ -199,7 +199,7 @@ public class MemoryResource {
    }
 
    @POST
-   @Path("/getresponse")
+   @Path("/getResponse")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Response getResponseMemory(InputStream requestBean) {

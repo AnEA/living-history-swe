@@ -50,8 +50,8 @@ public class SemanticSearch {
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String searchText = obj.getString("search");
-         String searchMaxDate = obj.getString("maxDate");
-         String searchMinDate = obj.getString("minDate");
+         String searchMaxDate = String.valueOf(obj.getInt("maxDate"));
+         String searchMinDate = String.valueOf(obj.getInt("minDate"));
 
          String query = searchText.replaceAll(" ", "+");
          String service_url = "https://www.googleapis.com/freebase/v1/search";
@@ -147,11 +147,7 @@ public class SemanticSearch {
             return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
          }
          else {
-            JSONObject jObjResponse = new JSONObject();
-            jObjResponse.put("success", "true");
-            jObjResponse.put("freebase", freebaseWords);
-            jObjResponse.put("memories", jArray);
-            return Response.ok(jObjResponse.toString()).build();
+            return Response.ok(jArray.toString()).build();
          }
 
       }
