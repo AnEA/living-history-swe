@@ -5,15 +5,17 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -38,8 +40,8 @@ import com.swe.database.ConnectDatabase;
 @Path("/search")
 public class SemanticSearch {
 
-   @GET
-   @Path("/get")
+   @POST
+   @Path("/filter")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Response getSemanticResults(InputStream requestBean) {
@@ -48,6 +50,8 @@ public class SemanticSearch {
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
          String searchText = obj.getString("search");
+         String searchMaxDate = obj.getString("maxDate");
+         String searchMinDate = obj.getString("minDate");
 
          String query = searchText.replaceAll(" ", "+");
          String service_url = "https://www.googleapis.com/freebase/v1/search";
@@ -67,19 +71,20 @@ public class SemanticSearch {
          JSONArray freebaseWords = new JSONArray();
          JSONArray jArray = new JSONArray();
 
-         for (int i = 0; i < 5; i++) {
+         for (int i = 0; i < 5  ; i++) {
             JSONObject jsonobject = rsltArray.getJSONObject(i);
             String name = jsonobject.getString("name");
-            
+
             System.out.println(name);
-            
             freebaseWords.put(name);
 
             Statement stmt = null;
             stmt = conn.createStatement();
-            String sql = "select memory.memory_id , memory.place_id, memory.title , place.place_name, place.latitude, place.longtitude, memory.author , memory.image_url, memory.content , memory.tags , memory.mem_date ," + 
-            " memory.active from place inner join memory on place.place_id = memory.place_id where tags like '%" + name + "%'";
-            
+            String sql = "select memory.memory_id , memory.place_id , memory.title , place.place_name, place.latitude, place.longtitude, place.address_components, memory.author , " +
+                         "memory.image_url, memory.content , memory.tags , memory.mem_date , memory.active " +
+                         "from place inner join memory on place.place_id = memory.place_id where " +
+                         "tags like '%" + name +"%' or address_components like '%" + name + "%' or content like '%"+ name + "%' or title like '%"+ name +"%'";
+
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -120,25 +125,35 @@ public class SemanticSearch {
                jObj.put("latitude", latitude);
                jObj.put("longitude", longitude);
                jObj.put("memories", jArrayMemory);
-               jArray.put(jObj);
+
+               SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+               String dateMaxInString = "31/12/" + searchMaxDate;
+               String dateMinInString = "01/01/" + searchMinDate;
+
+               Date dateMax = formatter.parse(dateMaxInString);
+               Date dateMin = formatter.parse(dateMinInString);
+
+               if ((mem_date.after(dateMin) || mem_date.equals(dateMin)) && (mem_date.before(dateMax) || mem_date.equals(dateMax))) {
+                  jArray.put(jObj);
+               }
             }
          }
-         
-         if(jArray.isNull(0)) {
+
+         if (jArray.isNull(0)) {
             JSONObject jObjResponse = new JSONObject();
             jObjResponse.put("success", "true");
             jObjResponse.put("freebase", freebaseWords);
             jObjResponse.put("memories", "No data Available");
             return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
-         }else{
+         }
+         else {
             JSONObject jObjResponse = new JSONObject();
             jObjResponse.put("success", "true");
             jObjResponse.put("freebase", freebaseWords);
             jObjResponse.put("memories", jArray);
             return Response.ok(jObjResponse.toString()).build();
          }
-         
-         
+
       }
       catch (Exception e) {
          return Response.ok(new ErrorResponseBean(e)).build();

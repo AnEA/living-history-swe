@@ -16,11 +16,13 @@ public class RestClientSearch {
    public static void main(String[] args) {
       try {
          JSONObject jsonObject = new JSONObject();
-         jsonObject.put("search", "snow");
+         jsonObject.put("search", "beer");
+         jsonObject.put("maxDate", "2014");
+         jsonObject.put("minDate", "1900");
          System.out.println(jsonObject);
 
          try {
-            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/search/get");
+            URL url = new URL("http://localhost:8080/LivingHistoryRestService/rest/search/filter");
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");
