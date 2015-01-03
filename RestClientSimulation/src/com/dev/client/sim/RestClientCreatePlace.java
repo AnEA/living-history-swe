@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -20,6 +21,12 @@ public class RestClientCreatePlace {
          jsonObject.put("place_name", "London2");
          jsonObject.put("latitude", "23.343534");
          jsonObject.put("longitude", "54.5345254");
+         JSONArray ilkerk = new JSONArray();
+         ilkerk.put("London");
+         ilkerk.put("uk");
+         ilkerk.put("europe");
+         ilkerk.put("Earth");
+         jsonObject.put("addressComponents", ilkerk);
          System.out.println(jsonObject);
 
          try {
