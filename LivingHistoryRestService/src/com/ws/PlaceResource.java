@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import bean.ErrorResponseBean;
@@ -42,14 +43,22 @@ public class PlaceResource {
          String place_name = obj.getString("place_name");
          double latitude = obj.getDouble("latitude");
          double longitude = obj.getDouble("longitude");
+         JSONArray address_components = (JSONArray) obj.get("addressComponents");
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
-         stmtMem = conn.prepareCall("INSERT INTO place (place_name, place_id, latitude, longtitude) values(?,?,?,?);");
+         stmtMem = conn.prepareCall("INSERT INTO place (place_name, place_id, latitude, longtitude,address_components) values(?,?,?,?,?);");
          stmtMem.setString(1, place_name);
          stmtMem.setString(2, place_id);
          stmtMem.setDouble(3, latitude);
          stmtMem.setDouble(4, longitude);
+         
+         StringBuilder sbAC = new StringBuilder();
+         for (int j = 0; j < address_components.length(); j++) {
+            sbAC.append(address_components.get(j));
+            sbAC.append(";");
+         }
+         stmtMem.setString(5, sbAC.toString());
          stmtMem.executeUpdate();
 
          JSONObject jObjResponse = new JSONObject();
