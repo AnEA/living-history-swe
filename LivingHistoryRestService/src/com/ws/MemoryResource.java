@@ -115,7 +115,7 @@ public class MemoryResource {
 
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
          JSONObject obj = new JSONObject(bufferedReader.readLine());
-         
+
          String author = obj.getString("author");
          String title = obj.getString("title");
          String email = obj.getString("email");
@@ -125,7 +125,7 @@ public class MemoryResource {
          String date = obj.getString("date");
          boolean active = obj.getBoolean("active");
          JSONArray places = (JSONArray) obj.get("places");
-         
+
          SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
          Date startDateParsed = format.parse(date);
          java.sql.Date dbDate = new java.sql.Date(startDateParsed.getTime());
@@ -160,4 +160,40 @@ public class MemoryResource {
          return Response.ok(new ErrorResponseBean(e)).build();
       }
    }
+
+   @POST
+   @Path("/response")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response sendResponseMemory(InputStream requestBean) {
+      try {
+
+         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
+         JSONObject obj = new JSONObject(bufferedReader.readLine());
+
+         String memoryId = obj.getString("memoryId");
+         String user = obj.getString("user");
+         String responseId = obj.getString("responseId");
+
+         Connection conn = ConnectDatabase.getInstance().getConnection();
+         CallableStatement stmtMem = null;
+
+         stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id ) values(?,?,?);");
+         
+         stmtMem.setString(1, responseId);
+         stmtMem.setString(2, user);
+         stmtMem.setString(3, memoryId);
+         stmtMem.executeUpdate();
+
+         JSONObject jObjResponse = new JSONObject();
+         jObjResponse.put("success", "true");
+
+         return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
+      }
+      catch (Exception e) {
+         System.out.println(e.getMessage());
+         return Response.ok(new ErrorResponseBean(e)).build();
+      }
+   }
+
 }
