@@ -31,7 +31,7 @@ import com.swe.database.ConnectDatabase;
 
 /**
  * @author Ilker Karamanli
- * @Summary User specific data handled here.
+ * @Summary Semantic Search.
  */
 @Stateless
 @Path("/search")
