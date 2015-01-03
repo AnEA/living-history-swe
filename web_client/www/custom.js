@@ -12,7 +12,7 @@ angular.module('swe').directive('openMenu', function() {
 
 angular.module('swe').config(['RestangularProvider',
     function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('http://private-69827-swelivinghistory.apiary-mock.com/LivingHistoryRestService/rest');
+        RestangularProvider.setBaseUrl('http://ec2-54-72-10-88.eu-west-1.compute.amazonaws.com:8080/LivingHistoryRestService/rest');
     }
 ]);
 
