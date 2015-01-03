@@ -178,11 +178,13 @@ public class MemoryResource {
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
 
-         stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id ) values(?,?,?);");
-         
+         stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id, response_date) values(?,?,?,?);");
+
+         java.sql.Date d = new java.sql.Date(System.currentTimeMillis());
          stmtMem.setString(1, responseId);
          stmtMem.setString(2, user);
          stmtMem.setString(3, memoryId);
+         stmtMem.setDate(4, d);
          stmtMem.executeUpdate();
 
          JSONObject jObjResponse = new JSONObject();
@@ -196,4 +198,44 @@ public class MemoryResource {
       }
    }
 
+   @POST
+   @Path("/getresponse")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   public Response getResponseMemory(InputStream requestBean) {
+      try {
+
+         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(requestBean));
+         JSONObject obj = new JSONObject(bufferedReader.readLine());
+
+         int memoryId = obj.getInt("memoryId");
+
+         Connection conn = ConnectDatabase.getInstance().getConnection();
+         Statement stmt = null;
+         System.out.println("Creating statement...");
+         stmt = conn.createStatement();
+         String sql = "SELECT * FROM response where memory_id=" + memoryId;
+         ResultSet rs = stmt.executeQuery(sql);
+         JSONArray jArray = new JSONArray();
+         
+         while (rs.next()) {
+            // Retrieve by column name
+            String response_id = rs.getString("response_id");
+            String user = rs.getString("user");
+            java.sql.Date response_date= rs.getDate("response_date");
+
+            JSONObject jObjRes = new JSONObject();
+            jObjRes.put("sender", user);
+            jObjRes.put("responseId", response_id);
+            jObjRes.put("date", response_date);
+            jArray.put(jObjRes);
+            
+         }
+         return Response.status(201).type("application/json").entity(jArray.toString()).build();
+      }
+      catch (Exception e) {
+         System.out.println(e.getMessage());
+         return Response.ok(new ErrorResponseBean(e)).build();
+      }
+   }
 }
