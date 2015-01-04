@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -65,15 +66,21 @@ public class SemanticSearch {
          BufferedReader bufferedReaderResult = new BufferedReader(new InputStreamReader(ins));
          JSONObject objRslt = new JSONObject(bufferedReaderResult.readLine());
          JSONArray rsltArray = objRslt.getJSONArray("result");
+         
+         ArrayList<String> nameArray = new ArrayList<String>();
+         nameArray.add(query);
+         for (int i = 0; i < 5 && i < rsltArray.length(); i++) {
+            JSONObject jsonobject = rsltArray.getJSONObject(i);
+            nameArray.add(jsonobject.getString("name"));
+         }
 
          Connection conn = ConnectDatabase.getInstance().getConnection();
 
          JSONArray freebaseWords = new JSONArray();
          JSONArray jArray = new JSONArray();
 
-         for (int i = 0; i < 5  ; i++) {
-            JSONObject jsonobject = rsltArray.getJSONObject(i);
-            String name = jsonobject.getString("name");
+         for (int i = 0; i < nameArray.size(); i++) {
+            String name = nameArray.get(i);
 
             System.out.println(name);
             freebaseWords.put(name);
