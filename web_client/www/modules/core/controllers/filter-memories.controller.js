@@ -47,9 +47,8 @@ angular.module('core').controller('FilterMemoriesController', ['$scope', 'Marker
                 maxDate: $scope.range.max,
                 search: $scope.hashtag
             }).then(function(markers) {
-                var memories = markers.memories;
-                if (memories !== 'No data Available') {
-                    MarkerService.filteredMarkers = memories;
+                if (markers.length) {
+                    MarkerService.filteredMarkers = markers;
                     MarkerService.notifyObservers();
                 } else {
                     showNoMemoryError();

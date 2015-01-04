@@ -139,16 +139,7 @@ public class SemanticSearch {
             }
          }
 
-         if (jArray.isNull(0)) {
-            JSONObject jObjResponse = new JSONObject();
-            jObjResponse.put("success", "true");
-            jObjResponse.put("freebase", freebaseWords);
-            jObjResponse.put("memories", "No data Available");
-            return Response.status(201).type("application/json").entity(jObjResponse.toString()).build();
-         }
-         else {
-            return Response.ok(jArray.toString()).build();
-         }
+         return Response.ok(jArray.toString()).build();
 
       }
       catch (Exception e) {
