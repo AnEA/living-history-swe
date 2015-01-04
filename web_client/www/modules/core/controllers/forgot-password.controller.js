@@ -7,7 +7,7 @@ angular.module('core').controller('ForgotPasswordController', ['$scope', 'UserSe
                 if (res.success) {
                     $scope.alerts = [{
                         type: 'success',
-                        msg: 'Reset instructions are sent to your email!'
+                        msg: 'Your new password is sent to your email!'
                     }];
                 } else {
                     $scope.alerts = [{

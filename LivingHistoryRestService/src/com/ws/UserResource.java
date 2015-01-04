@@ -130,13 +130,24 @@ public class UserResource {
          CallableStatement stmtMem = null;
          System.out.println(genPassword);
          System.out.println(email);
-         stmtMem = conn.prepareCall("update userinfo set passwordinfo='" + genPassword + "' where email='" + email + "'");
-         stmtMem.executeUpdate();
-         
-         sendEmail sendMail = new sendEmail();
-         sendMail.sendmail(email, genPassword);
 
-         return Response.ok(obj.toString()).build();
+         stmtMem = conn.prepareCall("select * FROM userinfo where email='" + email + "'");
+         ResultSet rs = stmtMem.executeQuery();
+         boolean userExist = false;
+         
+         while (rs.next()) {
+             userExist = true;
+             stmtMem = conn.prepareCall("update userinfo set passwordinfo='" + genPassword + "' where email='" + email + "'");
+             stmtMem.executeUpdate();
+             
+             sendEmail sendMail = new sendEmail();
+             sendMail.sendmail(email, genPassword);
+         }
+
+         JSONObject jObjResponse = new JSONObject();
+         jObjResponse.put("success", userExist);
+         
+         return Response.ok(jObjResponse.toString()).build();
 
       }
       catch (Exception e) {
