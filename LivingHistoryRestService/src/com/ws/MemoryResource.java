@@ -178,13 +178,11 @@ public class MemoryResource {
          Connection conn = ConnectDatabase.getInstance().getConnection();
          CallableStatement stmtMem = null;
 
-         stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id, response_date) values(?,?,?,?);");
+         stmtMem = conn.prepareCall("INSERT INTO response (response_id, user, memory_id) values(?,?,?);");
 
-         java.sql.Date d = new java.sql.Date(System.currentTimeMillis());
          stmtMem.setString(1, String.valueOf(responseId));
          stmtMem.setString(2, user);
          stmtMem.setString(3, memoryId);
-         stmtMem.setDate(4, d);
          stmtMem.executeUpdate();
 
          JSONObject jObjResponse = new JSONObject();
@@ -222,12 +220,11 @@ public class MemoryResource {
             // Retrieve by column name
             String response_id = rs.getString("response_id");
             String user = rs.getString("user");
-            java.sql.Date response_date= rs.getDate("response_date");
 
             JSONObject jObjRes = new JSONObject();
             jObjRes.put("sender", user);
             jObjRes.put("responseId", response_id);
-            jObjRes.put("date", response_date);
+            jObjRes.put("date", rs.getTimestamp("response_date"));
             jArray.put(jObjRes);
             
          }
