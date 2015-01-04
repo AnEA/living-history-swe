@@ -1,0 +1,5 @@
+bean
+com.swe.RandomPassordGen
+com.swe.database
+com.swe.sendmail
+com.ws
